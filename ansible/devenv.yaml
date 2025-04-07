@@ -1,0 +1,9 @@
+---
+- hosts: local
+  vars:
+    user: ds
+  roles:
+    - brew
+    - nodejs
+    - kitty
+    - lazyvim

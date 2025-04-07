@@ -1,0 +1,15 @@
+---
+- name: Ensure NVM is installed
+  shell: |
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+  args:
+    creates: "{{ ansible_env.HOME }}/.nvm"
+- name: Load NVM and install Node.js
+  shell: |
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+    nvm install --lts
+  args:
+    executable: /bin/bash
+  environment:
+    PROFILE: "{{ ansible_env.HOME }}/.zshrc"  # or .bashrc if you use bash

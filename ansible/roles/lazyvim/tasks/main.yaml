@@ -1,0 +1,60 @@
+---
+- name: Backup existing Neovim config dirs
+  shell: |
+    mv {{ item }}{,.bak}
+  args:
+    removes: "{{ item }}.bak"
+  loop:
+    - "{{ ansible_env.HOME }}/.config/nvim"
+    - "{{ ansible_env.HOME }}/.local/share/nvim"
+    - "{{ ansible_env.HOME }}/.local/state/nvim"
+    - "{{ ansible_env.HOME }}/.cache/nvim"
+  ignore_errors: true
+
+- name: Clone LazyVim starter if not present
+  git:
+    repo: "{{ lazyvim_repo }}"
+    dest: "{{ nvim_config_path }}"
+    clone: true
+    update: false
+  when: not (nvim_config_path is exists)
+
+- name: Remove .git folder from starter
+  file:
+    path: "{{ nvim_config_path }}/.git"
+    state: absent
+
+- name: Debug role path
+  debug:
+    var: role_path
+
+- name: Find LazyVim config files to symlink (preserving structure)
+  find:
+    paths: "{{ role_path }}/files"
+    file_type: file
+    recurse: yes
+  register: lazyvim_files
+
+- name: Debug found files
+  debug:
+    msg: "{{ item.path }}"
+  loop: "{{ lazyvim_files.files }}"
+
+- name: Ensure target directories exist in nvim config
+  file:
+    path: "{{ nvim_config_path }}/{{ item.path | regex_replace('^.*/files/', '') | dirname }}"
+    state: directory
+    mode: '0755'
+  loop: "{{ lazyvim_files.files }}"
+  loop_control:
+    label: "{{ item.path }}"
+
+- name: Symlink LazyVim config files to nvim config
+  file:
+    src: "{{ item.path }}"
+    dest: "{{ nvim_config_path }}/{{ item.path | regex_replace('^.*/files/', '') }}"
+    state: link
+    force: true
+  loop: "{{ lazyvim_files.files }}"
+  loop_control:
+    label: "{{ item.path }}"

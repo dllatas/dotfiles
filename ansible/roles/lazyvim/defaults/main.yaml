@@ -1,0 +1,3 @@
+lazyvim_repo: "https://github.com/LazyVim/starter"
+nvim_config_path: "{{ ansible_env.HOME }}/.config/nvim"
+custom_config_files: []  # You can override this if needed

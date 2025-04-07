@@ -1,0 +1,3 @@
+config_files:
+  - kitty.conf
+  - themes.conf

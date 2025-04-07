@@ -1,0 +1,22 @@
+---
+- name: Install Homebrew packages
+  homebrew:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - bitwarden
+    - git
+    - gh
+    - go
+    - zsh
+    - neovim
+    - bat
+    - ripgrep
+    - k9s
+
+- name: Install Cask packages
+  homebrew_cask:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - firefox

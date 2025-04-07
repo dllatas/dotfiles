@@ -1,0 +1,87 @@
+---
+- name: Download and run kitty installer script
+  shell: |
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+
+- name: Ensure kitty config directory exists
+  file:
+    path: "{{ ansible_env.HOME }}/.config/kitty"
+    state: directory
+    mode: '0755'
+
+- name: Symlink kitty config files
+  file:
+    src: "{{ role_path }}/files/{{ item }}"
+    dest: "{{ ansible_env.HOME }}/.config/kitty/{{ item }}"
+    state: link
+    force: true
+  loop: "{{ config_files }}"
+
+- name: Install zsh
+  ansible.builtin.package:
+    name: zsh
+    state: present
+
+- name: Set user shell to zsh
+  ansible.builtin.user:
+    name: "{{ user }}"
+    shell: /bin/zsh
+
+- name: Download ohmyzsh
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    dest: "/Users/{{ user }}/install.sh"
+    mode: '0755'
+
+- name: Install oh-my-zsh if not present
+  ansible.builtin.stat:
+    path: "/Users/{{ user }}/.oh-my-zsh"
+  register: ohmyzsh_dir
+
+- name: Run oh-my-zsh installer script
+  ansible.builtin.script:
+    cmd: "/Users/{{ user }}/install.sh"
+  when: not ohmyzsh_dir.stat.exists
+
+- name: Install PowerLevel10K
+  ansible.builtin.git:
+    repo: https://github.com/romkatv/powerlevel10k.git
+    dest: "/Users/{{ user }}/.oh-my-zsh/custom/themes/powerlevel10k"
+    depth: 1
+
+- name: Download NerdFonts
+  ansible.builtin.get_url:
+    url: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/Meslo.zip
+    dest: "/Users/{{ user }}/Meslo.zip"
+
+- name: Create temp directory
+  ansible.builtin.file:
+    path: "/Users/{{ user }}/Meslo"
+    state: directory
+    mode: '0755'
+
+- name: Install font files
+  ansible.builtin.unarchive:
+    src: "/Users/{{ user }}/Meslo.zip"
+    dest: "/Users/{{ user }}/Meslo"
+
+- name: Copy Meslo fonts to user font directory
+  ansible.builtin.copy:
+    src: "/Users/{{ user }}/Meslo/"
+    dest: "/Users/{{ user }}/Library/Fonts/"
+    mode: '0644'
+    owner: "{{ user }}"
+    group: staff
+
+- name: Symlink pl10k config file
+  file:
+    src: "{{ role_path }}/files/.p10k.zsh"
+    dest: "{{ ansible_env.HOME }}/.p10k.zsh"
+    state: link
+    force: true
+
+- name: Update .zshrc
+  ansible.builtin.lineinfile:
+    path: "/Users/{{ user }}/.zshrc"
+    insertafter: EOF
+    line: "source {{ ansible_env.HOME }}/.p10k.zsh"
