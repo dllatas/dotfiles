@@ -13,6 +13,7 @@
     - bat
     - ripgrep
     - k9s
+    - uv
 
 - name: Install Cask packages
   homebrew_cask:
