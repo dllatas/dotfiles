@@ -5,10 +5,8 @@ Personal workstation bootstrap for macOS, centered on Ansible-managed setup and 
 ## What is here
 
 - `ansible/`: local playbooks and roles for the development environment
-- `claude-md`: the shared global `CLAUDE.md` content for Claude Code
-- `codex-agents.md`: the shared global `AGENTS.md` content for OpenAI Codex
-- `codex-config.toml`: stable shared defaults for `~/.codex/config.toml`
-- `codex-init/`: a global Codex skill for onboarding repos
+- `ai/claude/`: the shared global Claude Code config
+- `ai/codex/`: the shared global Codex config and skills
 - `AGENTS.md`: repo-scoped instructions for this dotfiles repo
 
 ## Agent config
@@ -17,9 +15,9 @@ Personal workstation bootstrap for macOS, centered on Ansible-managed setup and 
 
 Claude Code reads global instructions from `~/.claude/CLAUDE.md`.
 
-This repo keeps that content in [`claude-md`](/Users/ds/code/dotfiles/claude-md). The Ansible playbook installs it automatically, or you can wire it manually:
+This repo keeps that content in [`ai/claude/CLAUDE.md`](/Users/ds/code/dotfiles/ai/claude/CLAUDE.md). The Ansible playbook installs it automatically, or you can wire it manually:
 
-1. Keep the canonical content in `claude-md`
+1. Keep the canonical content in `ai/claude/CLAUDE.md`
 2. Run the Ansible playbook or symlink it into `~/.claude/CLAUDE.md`
 3. Restart Claude Code sessions so the global instructions are picked up
 
@@ -27,7 +25,7 @@ From the repo root:
 
 ```bash
 mkdir -p ~/.claude
-ln -sf "$PWD/claude-md" ~/.claude/CLAUDE.md
+ln -sf "$PWD/ai/claude/CLAUDE.md" ~/.claude/CLAUDE.md
 ```
 
 To confirm it is wired correctly:
@@ -36,7 +34,7 @@ To confirm it is wired correctly:
 ls -l ~/.claude/CLAUDE.md
 ```
 
-The symlink target should point back to this repo's `claude-md` file.
+The symlink target should point back to this repo's Claude config file.
 
 ### OpenAI Codex
 
@@ -47,15 +45,15 @@ Codex has two relevant workstation-level layers:
 
 This repo tracks both:
 
-- [`codex-config.toml`](/Users/ds/code/dotfiles/codex-config.toml): stable defaults for `~/.codex/config.toml`
-- [`codex-agents.md`](/Users/ds/code/dotfiles/codex-agents.md): global instructions installed as `~/.codex/AGENTS.md`
-- [`codex-init/`](/Users/ds/code/dotfiles/codex-init/SKILL.md): a global Codex skill installed at `~/.agents/skills/codex-init`
+- [`ai/codex/config.toml`](/Users/ds/code/dotfiles/ai/codex/config.toml): stable defaults for `~/.codex/config.toml`
+- [`ai/codex/AGENTS.md`](/Users/ds/code/dotfiles/ai/codex/AGENTS.md): global instructions installed as `~/.codex/AGENTS.md`
+- [`ai/codex/skills/codex-init/`](/Users/ds/code/dotfiles/ai/codex/skills/codex-init/SKILL.md): a global Codex skill installed at `~/.agents/skills/codex-init`
 
 The Ansible playbook installs the global instructions file automatically. Manual fallback:
 
 ```bash
 mkdir -p ~/.codex
-ln -sf "$PWD/codex-agents.md" ~/.codex/AGENTS.md
+ln -sf "$PWD/ai/codex/AGENTS.md" ~/.codex/AGENTS.md
 ```
 
 Confirm it is wired correctly:
@@ -64,19 +62,19 @@ Confirm it is wired correctly:
 ls -l ~/.codex/AGENTS.md
 ```
 
-The Ansible playbook seeds `~/.codex/config.toml` from [`codex-config.toml`](/Users/ds/code/dotfiles/codex-config.toml) only when that file does not already exist. This avoids overwriting machine-local trust settings and notice state in an existing Codex config.
+The Ansible playbook seeds `~/.codex/config.toml` from [`ai/codex/config.toml`](/Users/ds/code/dotfiles/ai/codex/config.toml) only when that file does not already exist. This avoids overwriting machine-local trust settings and notice state in an existing Codex config.
 
-The playbook also installs the global `codex-init` skill by symlinking [`codex-init/`](/Users/ds/code/dotfiles/codex-init/SKILL.md) into `~/.agents/skills/codex-init`.
+The playbook also installs the global `codex-init` skill by symlinking [`ai/codex/skills/codex-init/`](/Users/ds/code/dotfiles/ai/codex/skills/codex-init/SKILL.md) into `~/.agents/skills/codex-init`.
 
 If you manage it manually, prefer copying or merging the tracked defaults instead of symlinking blindly. Codex user config often also contains local trust settings and notice state that are specific to one machine.
 
 Example starting point:
 
 ```bash
-cp codex-config.toml ~/.codex/config.toml
+cp ai/codex/config.toml ~/.codex/config.toml
 ```
 
-If you already have `~/.codex/config.toml`, merge the stable defaults from [`codex-config.toml`](/Users/ds/code/dotfiles/codex-config.toml) into it instead of overwriting it.
+If you already have `~/.codex/config.toml`, merge the stable defaults from [`ai/codex/config.toml`](/Users/ds/code/dotfiles/ai/codex/config.toml) into it instead of overwriting it.
 
 ### This Repo's Codex Instructions
 
@@ -86,10 +84,10 @@ If you already have `~/.codex/config.toml`, merge the stable defaults from [`cod
 
 The Claude and Codex files serve different products and layers, but they should express the same working preferences where that makes sense:
 
-- `claude-md` for Claude global instructions
-- `codex-agents.md` for Codex global instructions
-- `codex-config.toml` for Codex stable user defaults
-- `codex-init/` for the global Codex repo-onboarding skill
+- `ai/claude/CLAUDE.md` for Claude global instructions
+- `ai/codex/AGENTS.md` for Codex global instructions
+- `ai/codex/config.toml` for Codex stable user defaults
+- `ai/codex/skills/codex-init/` for the global Codex repo-onboarding skill
 
 If you update one of these, review the others so the guidance does not drift.
 
