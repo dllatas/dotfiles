@@ -46,7 +46,7 @@
 - name: Install PowerLevel10K
   ansible.builtin.git:
     repo: https://github.com/romkatv/powerlevel10k.git
-    dest: "/Users/{{ user }}/.oh-my-zsh/custom/themes/powerlevel10k"
+    dest: "/Users/{{ user }}/powerlevel10k"
     depth: 1
 
 - name: Download NerdFonts
