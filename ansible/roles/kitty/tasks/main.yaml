@@ -64,6 +64,7 @@
   ansible.builtin.unarchive:
     src: "{{ ansible_env.HOME }}/Meslo.zip"
     dest: "{{ ansible_env.HOME }}/Meslo"
+    remote_src: true
 
 - name: Copy Meslo fonts to user font directory
   ansible.builtin.copy:
