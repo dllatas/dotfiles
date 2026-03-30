@@ -70,6 +70,8 @@ The Ansible playbook seeds `~/.codex/config.toml` from [`ai/codex/config.toml`](
 
 The tracked defaults currently set `approval_policy = "on-request"` with `sandbox_mode = "danger-full-access"`. That combination gives Codex full local filesystem access, including Git metadata writes such as creating worktrees or branches, while still allowing approval prompts when the agent wants to ask before doing something sensitive.
 
+The tracked defaults currently set `approval_policy = "never"` with `sandbox_mode = "workspace-write"`. That combination keeps Codex sandboxed but avoids routine approval prompts for commands such as `git add`; sandbox failures still return to the agent for handling.
+
 The playbook also installs the global `codex-init` skill by symlinking [`ai/codex/skills/codex-init/`](/Users/ds/code/dotfiles/ai/codex/skills/codex-init/SKILL.md) into `~/.agents/skills/codex-init`.
 It also installs the global `write-commits` skill by symlinking [`ai/codex/skills/write-commits/`](/Users/ds/code/dotfiles/ai/codex/skills/write-commits/SKILL.md) into `~/.agents/skills/write-commits`.
 It also installs the global `create-pr` skill by symlinking [`ai/codex/skills/create-pr/`](/Users/ds/code/dotfiles/ai/codex/skills/create-pr/SKILL.md) into `~/.agents/skills/create-pr`.
