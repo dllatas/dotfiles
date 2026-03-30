@@ -30,6 +30,13 @@
     state: link
     force: true
 
+- name: Symlink Claude settings
+  file:
+    src: "{{ dotfiles_path }}/ai/claude/settings.json"
+    dest: "{{ claude_config_path }}/settings.json"
+    state: link
+    force: true
+
 - name: Symlink global claude-init skill
   file:
     src: "{{ dotfiles_path }}/ai/claude/skills/claude-init"

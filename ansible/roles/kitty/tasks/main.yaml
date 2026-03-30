@@ -80,8 +80,9 @@
     state: link
     force: true
 
-- name: Update .zshrc
-  ansible.builtin.lineinfile:
-    path: "/Users/{{ user }}/.zshrc"
-    insertafter: EOF
-    line: "source {{ ansible_env.HOME }}/.p10k.zsh"
+- name: Symlink zsh config file
+  file:
+    src: "{{ role_path }}/files/.zshrc"
+    dest: "{{ ansible_env.HOME }}/.zshrc"
+    state: link
+    force: true
