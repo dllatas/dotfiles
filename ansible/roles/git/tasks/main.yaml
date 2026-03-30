@@ -1,0 +1,7 @@
+---
+- name: Symlink global gitconfig
+  file:
+    src: "{{ role_path }}/files/.gitconfig"
+    dest: "{{ ansible_env.HOME }}/.gitconfig"
+    state: link
+    force: true
