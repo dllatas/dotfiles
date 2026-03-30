@@ -7,3 +7,6 @@
     - nodejs
     - kitty
     - lazyvim
+    - role: ai-agents
+      tags:
+        - ai-agents

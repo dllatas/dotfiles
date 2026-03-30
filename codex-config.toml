@@ -1,0 +1,22 @@
+# Stable defaults for Codex user config.
+#
+# Intended destination: ~/.codex/config.toml
+#
+# Keep durable preferences here. Avoid storing machine-local trust state or
+# transient notice state in this tracked file.
+
+model = "gpt-5.4"
+model_reasoning_effort = "high"
+personality = "pragmatic"
+
+approval_policy = "on-request"
+sandbox_mode = "workspace-write"
+web_search = "cached"
+
+file_opener = "vscode"
+project_doc_max_bytes = 32768
+
+[features]
+multi_agent = true
+shell_snapshot = true
+unified_exec = true

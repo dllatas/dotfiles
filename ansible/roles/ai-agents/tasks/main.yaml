@@ -1,0 +1,52 @@
+---
+- name: Ensure ~/.claude directory exists
+  file:
+    path: "{{ claude_config_path }}"
+    state: directory
+    mode: "0755"
+
+- name: Ensure ~/.codex directory exists
+  file:
+    path: "{{ codex_config_path }}"
+    state: directory
+    mode: "0755"
+
+- name: Ensure Codex skills directory exists
+  file:
+    path: "{{ codex_skills_path }}"
+    state: directory
+    mode: "0755"
+
+- name: Symlink global Claude Code instructions
+  file:
+    src: "{{ dotfiles_path }}/claude-md"
+    dest: "{{ claude_config_path }}/CLAUDE.md"
+    state: link
+    force: true
+
+- name: Symlink global Codex instructions
+  file:
+    src: "{{ dotfiles_path }}/codex-agents.md"
+    dest: "{{ codex_config_path }}/AGENTS.md"
+    state: link
+    force: true
+
+- name: Symlink global codex-init skill
+  file:
+    src: "{{ dotfiles_path }}/codex-init"
+    dest: "{{ codex_skills_path }}/codex-init"
+    state: link
+    force: true
+
+- name: Check whether Codex config already exists
+  stat:
+    path: "{{ codex_config_path }}/config.toml"
+  register: codex_config_stat
+
+- name: Seed Codex config defaults when config is missing
+  copy:
+    content: "{{ lookup('file', dotfiles_path + '/codex-config.toml') }}"
+    dest: "{{ codex_config_path }}/config.toml"
+    mode: "0644"
+    force: false
+  when: not codex_config_stat.stat.exists
