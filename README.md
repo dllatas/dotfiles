@@ -36,7 +36,7 @@ ls -l ~/.claude/CLAUDE.md
 
 The symlink target should point back to this repo's Claude config file.
 
-This repo also tracks the global Claude onboarding skill in [`ai/claude/skills/claude-init/`](/Users/ds/code/dotfiles/ai/claude/skills/claude-init/SKILL.md). The playbook installs it as `~/.claude/skills/claude-init`.
+This repo also tracks the global Claude onboarding skill in [`ai/claude/skills/claude-init/`](/Users/ds/code/dotfiles/ai/claude/skills/claude-init/SKILL.md) and the global Claude commit-writing skill in [`ai/claude/skills/write-commits/`](/Users/ds/code/dotfiles/ai/claude/skills/write-commits/SKILL.md). The playbook installs them as `~/.claude/skills/claude-init` and `~/.claude/skills/write-commits`.
 
 ### OpenAI Codex
 
@@ -70,6 +70,7 @@ The Ansible playbook seeds `~/.codex/config.toml` from [`ai/codex/config.toml`](
 The tracked defaults currently set `approval_policy = "never"` with `sandbox_mode = "workspace-write"`. That combination keeps Codex sandboxed but avoids routine approval prompts for commands such as `git add`; sandbox failures still return to the agent for handling.
 
 The playbook also installs the global `codex-init` skill by symlinking [`ai/codex/skills/codex-init/`](/Users/ds/code/dotfiles/ai/codex/skills/codex-init/SKILL.md) into `~/.agents/skills/codex-init`.
+It also installs the global `write-commits` skill by symlinking [`ai/codex/skills/write-commits/`](/Users/ds/code/dotfiles/ai/codex/skills/write-commits/SKILL.md) into `~/.agents/skills/write-commits`.
 
 If you manage it manually, prefer copying or merging the tracked defaults instead of symlinking blindly. Codex user config often also contains local trust settings and notice state that are specific to one machine.
 
@@ -91,9 +92,11 @@ The Claude and Codex files serve different products and layers, but they should 
 
 - `ai/claude/CLAUDE.md` for Claude global instructions
 - `ai/claude/skills/claude-init/` for the global Claude repo-onboarding skill
+- `ai/claude/skills/write-commits/` for the global Claude commit-writing skill
 - `ai/codex/AGENTS.md` for Codex global instructions
 - `ai/codex/config.toml` for Codex stable user defaults
 - `ai/codex/skills/codex-init/` for the global Codex repo-onboarding skill
+- `ai/codex/skills/write-commits/` for the global Codex commit-writing skill
 
 If you update one of these, review the others so the guidance does not drift.
 

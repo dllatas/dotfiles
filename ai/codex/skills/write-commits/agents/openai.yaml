@@ -1,0 +1,4 @@
+interface:
+  display_name: "Write Commits"
+  short_description: "Split changes into atomic git commits with strong messages"
+  default_prompt: "Use $write-commits to turn the current changes into a clean series of logical commits."

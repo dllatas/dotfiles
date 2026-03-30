@@ -24,3 +24,10 @@
     dest: "{{ claude_skills_path }}/claude-init"
     state: link
     force: true
+
+- name: Symlink write-commits skill
+  file:
+    src: "{{ dotfiles_path }}/ai/claude/skills/write-commits"
+    dest: "{{ claude_skills_path }}/write-commits"
+    state: link
+    force: true

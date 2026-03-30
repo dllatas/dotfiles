@@ -60,8 +60,10 @@ The `ai-agents` role installs these global files:
 
 - [`../ai/claude/CLAUDE.md`](/Users/ds/code/dotfiles/ai/claude/CLAUDE.md) as `~/.claude/CLAUDE.md`
 - [`../ai/claude/skills/claude-init/`](/Users/ds/code/dotfiles/ai/claude/skills/claude-init/SKILL.md) as `~/.claude/skills/claude-init`
+- [`../ai/claude/skills/write-commits/`](/Users/ds/code/dotfiles/ai/claude/skills/write-commits/SKILL.md) as `~/.claude/skills/write-commits`
 - [`../ai/codex/AGENTS.md`](/Users/ds/code/dotfiles/ai/codex/AGENTS.md) as `~/.codex/AGENTS.md`
 - [`../ai/codex/skills/codex-init/`](/Users/ds/code/dotfiles/ai/codex/skills/codex-init/SKILL.md) as `~/.agents/skills/codex-init`
+- [`../ai/codex/skills/write-commits/`](/Users/ds/code/dotfiles/ai/codex/skills/write-commits/SKILL.md) as `~/.agents/skills/write-commits`
 
 For Codex user config, the role seeds [`../ai/codex/config.toml`](/Users/ds/code/dotfiles/ai/codex/config.toml) into `~/.codex/config.toml` only when that file does not already exist. If `~/.codex/config.toml` is already present, the role leaves it untouched so local trust settings and notice state are preserved.
 
