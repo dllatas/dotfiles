@@ -1,35 +1,18 @@
 return {
   "olimorris/codecompanion.nvim",
-  dependencies = {
-    "nvim-lua/plenary.nvim",
-    "nvim-treesitter/nvim-treesitter",
-  },
   opts = {
-    adapters = {
-      llama3 = function()
-        return require("codecompanion.adapters").extend("ollama", {
-          name = "deepseek-r1",
-          schema = {
-            model = {
-              default = "deepseek-r1:8b",
-            },
-            num_ctx = {
-              default = 16384,
-            },
-            num_predict = {
-              default = -1,
-            },
-          },
-        })
-      end,
-    },
+    --Refer to: https://github.com/olimorris/codecompanion.nvim/blob/main/lua/codecompanion/config.lua
     strategies = {
-      chat = {
-        adapter = "ollama",
-      },
+      --NOTE: Change the adapter as required
+      chat = { adapter = "ollama" },
+      inline = { adapter = "ollama" },
     },
     opts = {
       log_level = "DEBUG",
     },
+  },
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-treesitter/nvim-treesitter",
   },
 }
