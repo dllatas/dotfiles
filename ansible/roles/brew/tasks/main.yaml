@@ -4,20 +4,74 @@
     name: "{{ item }}"
     state: present
   loop:
-    - bitwarden
+    # Version control & collaboration
     - git
     - gh
+
+    # Languages & runtimes
     - go
+    - pyenv
+
+    # Shell
     - zsh
+
+    # Editors
     - neovim
+
+    # CLI utilities
     - bat
+    - coreutils
+    - gnupg
+    - jq
     - ripgrep
+    - tlrc
+
+    # Containers & orchestration
+    - dive
+    - helm
     - k9s
+    - kubernetes-cli
+
+    # Infrastructure & GitOps
+    - ansible
+    - argocd
+    - opentofu
+    - vault
+
+    # AI / ML
+    - ollama
+
+    # Python tooling
     - uv
+
+    # Static sites
+    - hugo
 
 - name: Install Cask packages
   homebrew_cask:
     name: "{{ item }}"
     state: present
   loop:
+    # Browsers
     - firefox
+    - google-chrome
+
+    # Containers & VMs
+    - docker
+    - utm
+    - vagrant
+    - virtualbox
+
+    # Communication
+    - discord
+    - slack
+
+    # Security & networking
+    - bitwarden
+    - protonvpn
+    - tailscale
+
+    # Utilities
+    - rectangle
+    - vlc
+    - db-browser-for-sqlite
