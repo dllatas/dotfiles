@@ -66,9 +66,9 @@ Confirm it is wired correctly:
 ls -l ~/.codex/AGENTS.md
 ```
 
-The Ansible playbook seeds `~/.codex/config.toml` from [`ai/codex/config.toml`](/Users/ds/code/dotfiles/ai/codex/config.toml) only when that file does not already exist. This avoids overwriting machine-local trust settings and notice state in an existing Codex config.
+The Ansible playbook seeds `~/.codex/config.toml` from [`ai/codex/config.toml`](/Users/ds/code/dotfiles/ai/codex/config.toml) when that file does not already exist. If `~/.codex/config.toml` is already present, the role reconciles the stable top-level defaults from the tracked file while preserving local `[projects]` trust entries and notice state.
 
-The tracked defaults currently set `approval_policy = "never"` with `sandbox_mode = "workspace-write"`. That combination keeps Codex sandboxed but avoids routine approval prompts for commands such as `git add`; sandbox failures still return to the agent for handling.
+The tracked defaults currently set `approval_policy = "on-request"` with `sandbox_mode = "danger-full-access"`. That combination gives Codex full local filesystem access, including Git metadata writes such as creating worktrees or branches, while still allowing approval prompts when the agent wants to ask before doing something sensitive.
 
 The playbook also installs the global `codex-init` skill by symlinking [`ai/codex/skills/codex-init/`](/Users/ds/code/dotfiles/ai/codex/skills/codex-init/SKILL.md) into `~/.agents/skills/codex-init`.
 It also installs the global `write-commits` skill by symlinking [`ai/codex/skills/write-commits/`](/Users/ds/code/dotfiles/ai/codex/skills/write-commits/SKILL.md) into `~/.agents/skills/write-commits`.
@@ -82,7 +82,7 @@ Example starting point:
 cp ai/codex/config.toml ~/.codex/config.toml
 ```
 
-If you already have `~/.codex/config.toml`, merge the stable defaults from [`ai/codex/config.toml`](/Users/ds/code/dotfiles/ai/codex/config.toml) into it instead of overwriting it.
+If you already have `~/.codex/config.toml`, merge the stable defaults from [`ai/codex/config.toml`](/Users/ds/code/dotfiles/ai/codex/config.toml) into it instead of overwriting it wholesale. Preserve any machine-local `[projects]` trust settings and notice state you want to keep.
 
 ### This Repo's Codex Instructions
 

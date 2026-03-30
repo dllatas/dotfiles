@@ -67,6 +67,6 @@ The `ai-agents` role installs these global files:
 - [`../ai/codex/skills/write-commits/`](/Users/ds/code/dotfiles/ai/codex/skills/write-commits/SKILL.md) as `~/.agents/skills/write-commits`
 - [`../ai/codex/skills/create-pr/`](/Users/ds/code/dotfiles/ai/codex/skills/create-pr/SKILL.md) as `~/.agents/skills/create-pr`
 
-For Codex user config, the role seeds [`../ai/codex/config.toml`](/Users/ds/code/dotfiles/ai/codex/config.toml) into `~/.codex/config.toml` only when that file does not already exist. If `~/.codex/config.toml` is already present, the role leaves it untouched so local trust settings and notice state are preserved.
+For Codex user config, the role seeds [`../ai/codex/config.toml`](/Users/ds/code/dotfiles/ai/codex/config.toml) into `~/.codex/config.toml` when that file does not already exist. If `~/.codex/config.toml` is already present, the role reconciles the tracked stable top-level defaults in place while preserving local `[projects]` trust settings and notice state.
 
 See [`../README.md`](/Users/ds/code/dotfiles/README.md) for the full Claude and Codex setup notes.
