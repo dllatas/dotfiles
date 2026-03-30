@@ -67,6 +67,8 @@ ls -l ~/.codex/AGENTS.md
 
 The Ansible playbook seeds `~/.codex/config.toml` from [`ai/codex/config.toml`](/Users/ds/code/dotfiles/ai/codex/config.toml) only when that file does not already exist. This avoids overwriting machine-local trust settings and notice state in an existing Codex config.
 
+The tracked defaults currently set `approval_policy = "never"` with `sandbox_mode = "workspace-write"`. That combination keeps Codex sandboxed but avoids routine approval prompts for commands such as `git add`; sandbox failures still return to the agent for handling.
+
 The playbook also installs the global `codex-init` skill by symlinking [`ai/codex/skills/codex-init/`](/Users/ds/code/dotfiles/ai/codex/skills/codex-init/SKILL.md) into `~/.agents/skills/codex-init`.
 
 If you manage it manually, prefer copying or merging the tracked defaults instead of symlinking blindly. Codex user config often also contains local trust settings and notice state that are specific to one machine.
