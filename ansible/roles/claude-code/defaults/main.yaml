@@ -1,0 +1,4 @@
+---
+claude_config_path: "{{ ansible_env.HOME }}/.claude"
+claude_skills_path: "{{ claude_config_path }}/skills"
+dotfiles_path: "{{ playbook_dir }}/.."

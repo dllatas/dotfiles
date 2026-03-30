@@ -1,0 +1,26 @@
+---
+- name: Ensure ~/.claude directory exists
+  file:
+    path: "{{ claude_config_path }}"
+    state: directory
+    mode: '0755'
+
+- name: Ensure ~/.claude/skills directory exists
+  file:
+    path: "{{ claude_skills_path }}"
+    state: directory
+    mode: '0755'
+
+- name: Symlink global CLAUDE.md
+  file:
+    src: "{{ dotfiles_path }}/claude-md"
+    dest: "{{ claude_config_path }}/CLAUDE.md"
+    state: link
+    force: true
+
+- name: Symlink claude-init skill
+  file:
+    src: "{{ dotfiles_path }}/claude-init"
+    dest: "{{ claude_skills_path }}/claude-init"
+    state: link
+    force: true
