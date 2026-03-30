@@ -49,31 +49,6 @@
     dest: "{{ ansible_env.HOME }}/powerlevel10k"
     depth: 1
 
-- name: Download NerdFonts
-  ansible.builtin.get_url:
-    url: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/Meslo.zip
-    dest: "{{ ansible_env.HOME }}/Meslo.zip"
-
-- name: Create temp directory
-  ansible.builtin.file:
-    path: "{{ ansible_env.HOME }}/Meslo"
-    state: directory
-    mode: '0755'
-
-- name: Install font files
-  ansible.builtin.unarchive:
-    src: "{{ ansible_env.HOME }}/Meslo.zip"
-    dest: "{{ ansible_env.HOME }}/Meslo"
-    remote_src: true
-
-- name: Copy Meslo fonts to user font directory
-  ansible.builtin.copy:
-    src: "{{ ansible_env.HOME }}/Meslo/"
-    dest: "{{ ansible_env.HOME }}/Library/Fonts/"
-    mode: '0644'
-    owner: "{{ ansible_user_id }}"
-    group: staff
-
 - name: Symlink pl10k config file
   file:
     src: "{{ role_path }}/files/.p10k.zsh"

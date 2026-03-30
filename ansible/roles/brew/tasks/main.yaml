@@ -71,6 +71,9 @@
     - protonvpn
     - tailscale
 
+    # Fonts
+    - font-meslo-lg-nerd-font
+
     # Utilities
     - rectangle
     - vlc
