@@ -36,6 +36,8 @@ ls -l ~/.claude/CLAUDE.md
 
 The symlink target should point back to this repo's Claude config file.
 
+This repo also tracks the global Claude onboarding skill in [`ai/claude/skills/claude-init/`](/Users/ds/code/dotfiles/ai/claude/skills/claude-init/SKILL.md). The playbook installs it as `~/.claude/skills/claude-init`.
+
 ### OpenAI Codex
 
 Codex has two relevant workstation-level layers:
@@ -48,6 +50,7 @@ This repo tracks both:
 - [`ai/codex/config.toml`](/Users/ds/code/dotfiles/ai/codex/config.toml): stable defaults for `~/.codex/config.toml`
 - [`ai/codex/AGENTS.md`](/Users/ds/code/dotfiles/ai/codex/AGENTS.md): global instructions installed as `~/.codex/AGENTS.md`
 - [`ai/codex/skills/codex-init/`](/Users/ds/code/dotfiles/ai/codex/skills/codex-init/SKILL.md): a global Codex skill installed at `~/.agents/skills/codex-init`
+- [`ai/codex/skills/write-commits/`](/Users/ds/code/dotfiles/ai/codex/skills/write-commits/SKILL.md): a global Codex skill installed at `~/.agents/skills/write-commits`
 
 The Ansible playbook installs the global instructions file automatically. Manual fallback:
 
@@ -85,6 +88,7 @@ If you already have `~/.codex/config.toml`, merge the stable defaults from [`ai/
 The Claude and Codex files serve different products and layers, but they should express the same working preferences where that makes sense:
 
 - `ai/claude/CLAUDE.md` for Claude global instructions
+- `ai/claude/skills/claude-init/` for the global Claude repo-onboarding skill
 - `ai/codex/AGENTS.md` for Codex global instructions
 - `ai/codex/config.toml` for Codex stable user defaults
 - `ai/codex/skills/codex-init/` for the global Codex repo-onboarding skill

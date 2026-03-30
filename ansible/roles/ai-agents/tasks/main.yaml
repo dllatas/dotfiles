@@ -5,6 +5,12 @@
     state: directory
     mode: "0755"
 
+- name: Ensure Claude skills directory exists
+  file:
+    path: "{{ claude_skills_path }}"
+    state: directory
+    mode: "0755"
+
 - name: Ensure ~/.codex directory exists
   file:
     path: "{{ codex_config_path }}"
@@ -21,6 +27,13 @@
   file:
     src: "{{ dotfiles_path }}/ai/claude/CLAUDE.md"
     dest: "{{ claude_config_path }}/CLAUDE.md"
+    state: link
+    force: true
+
+- name: Symlink global claude-init skill
+  file:
+    src: "{{ dotfiles_path }}/ai/claude/skills/claude-init"
+    dest: "{{ claude_skills_path }}/claude-init"
     state: link
     force: true
 

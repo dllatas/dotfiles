@@ -21,6 +21,7 @@ This repository is a personal macOS workstation bootstrap centered on Ansible, t
 - Keep documentation aligned with the real install flow; do not describe automation that does not exist.
 - Preserve the current split:
   - `ai/claude/CLAUDE.md` is for Claude Code global instructions
+  - `ai/claude/skills/` is for global Claude Code skills
   - `ai/codex/AGENTS.md` is for Codex global instructions
   - `ai/codex/config.toml` is for Codex user-level defaults
   - `ai/codex/skills/` is for global Codex skills
