@@ -1,4 +1,11 @@
 ---
+- name: Tap third-party Homebrew repositories
+  homebrew_tap:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - hashicorp/tap
+
 - name: Install Homebrew packages
   homebrew:
     name: "{{ item }}"
@@ -36,7 +43,7 @@
     - ansible
     - argocd
     - opentofu
-    - vault
+    - hashicorp/tap/vault
 
     # AI / ML
     - ollama
