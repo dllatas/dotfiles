@@ -1,0 +1,4 @@
+interface:
+  display_name: "Codex Init"
+  short_description: "Onboard a repo with Codex AGENTS.md and project config"
+  default_prompt: "Use $codex-init to analyze this repository and set up the Codex project guidance it needs."
