@@ -25,12 +25,13 @@ Create commit history that is easy to review, rebase, and understand later.
 
 ## Workflow
 
-1. Inspect the working tree with `git status --short` and review the diff before staging anything.
-2. Split the changes into logical units. If a file mixes unrelated work, stage specific hunks instead of the whole file.
-3. For each unit, verify the staged diff is coherent and self-contained with `git diff --cached`.
-4. Commit each unit with a conventional-commit style subject when the repository uses that convention.
-5. Add a commit body when the reason, constraint, migration note, or tradeoff would not be obvious from the subject alone.
-6. If the branch must be synchronized before pushing, prefer `git fetch` plus rebase-based flows instead of merge commits.
+1. If the repository policy is to work in a git worktree, create or switch into that worktree before staging or committing.
+2. Inspect the working tree with `git status --short` and review the diff before staging anything.
+3. Split the changes into logical units. If a file mixes unrelated work, stage specific hunks instead of the whole file.
+4. For each unit, verify the staged diff is coherent and self-contained with `git diff --cached`.
+5. Commit each unit with a conventional-commit style subject when the repository uses that convention.
+6. Add a commit body when the reason, constraint, migration note, or tradeoff would not be obvious from the subject alone.
+7. If the branch must be synchronized before pushing, prefer `git fetch` plus rebase-based flows instead of merge commits.
 
 ## Commit Message Shape
 

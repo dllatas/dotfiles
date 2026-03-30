@@ -29,6 +29,8 @@
 - Always create a local preview after finishing an iteration
 - Create a PR for changes with a clear description
 - PRs should reference the problem being solved, not just list files changed
+- In git repositories, create and use a git worktree for the task instead of editing in the current checkout unless the user explicitly asks otherwise
+- If a worktree cannot be created safely, stop and explain the blocker before working in the current checkout
 
 ## Testing
 - Write tests for non-trivial logic; colocate test files (`*.test.ts` next to source)

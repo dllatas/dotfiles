@@ -98,6 +98,8 @@ The Claude and Codex files serve different products and layers, but they should 
 - `ai/codex/skills/codex-init/` for the global Codex repo-onboarding skill
 - `ai/codex/skills/write-commits/` for the global Codex commit-writing skill
 
+Both global instruction files now tell the agents to create and work from a git worktree in git repositories instead of editing directly in the current checkout, unless you explicitly override that for a task.
+
 If you update one of these, review the others so the guidance does not drift.
 
 ## How to run the machine setup
