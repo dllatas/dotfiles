@@ -19,21 +19,21 @@
 
 - name: Symlink global Claude Code instructions
   file:
-    src: "{{ dotfiles_path }}/claude-md"
+    src: "{{ dotfiles_path }}/ai/claude/CLAUDE.md"
     dest: "{{ claude_config_path }}/CLAUDE.md"
     state: link
     force: true
 
 - name: Symlink global Codex instructions
   file:
-    src: "{{ dotfiles_path }}/codex-agents.md"
+    src: "{{ dotfiles_path }}/ai/codex/AGENTS.md"
     dest: "{{ codex_config_path }}/AGENTS.md"
     state: link
     force: true
 
 - name: Symlink global codex-init skill
   file:
-    src: "{{ dotfiles_path }}/codex-init"
+    src: "{{ dotfiles_path }}/ai/codex/skills/codex-init"
     dest: "{{ codex_skills_path }}/codex-init"
     state: link
     force: true
@@ -45,7 +45,7 @@
 
 - name: Seed Codex config defaults when config is missing
   copy:
-    content: "{{ lookup('file', dotfiles_path + '/codex-config.toml') }}"
+    content: "{{ lookup('file', dotfiles_path + '/ai/codex/config.toml') }}"
     dest: "{{ codex_config_path }}/config.toml"
     mode: "0644"
     force: false

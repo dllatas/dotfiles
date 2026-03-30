@@ -8,7 +8,7 @@
 ## Code Style
 - TypeScript: strict mode always, `@/` path aliases, zod for validation
 - Go: standard library first, minimal dependencies, `go fmt` + `golangci-lint`
-- Python: type hints, ruff for linting, keep it minimal — only used for GenAI pipelines
+- Python: type hints, ruff for linting, keep it minimal - only used for GenAI pipelines
 - Node imports: use `node:` prefix for built-in modules (e.g., `import crypto from "node:crypto"`)
 - Prefer named exports; default exports only for React page/layout components
 

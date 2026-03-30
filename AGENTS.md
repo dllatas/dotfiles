@@ -5,9 +5,8 @@ This repository is a personal macOS workstation bootstrap centered on Ansible, t
 ## Repo Map
 
 - `ansible/`: playbooks, inventory, and roles for local machine setup
-- `claude-md`: canonical Claude Code global preferences tracked in this repo
-- `codex-agents.md`: canonical global Codex `AGENTS.md` content tracked in this repo
-- `codex-config.toml`: stable Codex user defaults tracked in this repo
+- `ai/claude/`: canonical Claude Code global instructions tracked in this repo
+- `ai/codex/`: canonical Codex global instructions, config, and skills tracked in this repo
 - `README.md`: human-facing setup notes
 
 ## Commands
@@ -21,9 +20,10 @@ This repository is a personal macOS workstation bootstrap centered on Ansible, t
 
 - Keep documentation aligned with the real install flow; do not describe automation that does not exist.
 - Preserve the current split:
-  - `claude-md` is for Claude Code global instructions
-  - `codex-agents.md` is for Codex global instructions
-  - `codex-config.toml` is for Codex user-level defaults
+  - `ai/claude/CLAUDE.md` is for Claude Code global instructions
+  - `ai/codex/AGENTS.md` is for Codex global instructions
+  - `ai/codex/config.toml` is for Codex user-level defaults
+  - `ai/codex/skills/` is for global Codex skills
   - `AGENTS.md` is for this repo's Codex-specific instructions only
 - If you change how Claude or Codex is configured, update `README.md` to explain both paths clearly.
 - When editing Ansible docs, call out hard-coded machine-specific values such as `user: ds` and `ansible_user=ds`.

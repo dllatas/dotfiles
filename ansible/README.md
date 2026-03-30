@@ -58,10 +58,10 @@ ansible-playbook -i production.ini main.yaml
 
 The `ai-agents` role installs these global files:
 
-- [`../claude-md`](/Users/ds/code/dotfiles/claude-md) as `~/.claude/CLAUDE.md`
-- [`../codex-agents.md`](/Users/ds/code/dotfiles/codex-agents.md) as `~/.codex/AGENTS.md`
-- [`../codex-init/`](/Users/ds/code/dotfiles/codex-init/SKILL.md) as `~/.agents/skills/codex-init`
+- [`../ai/claude/CLAUDE.md`](/Users/ds/code/dotfiles/ai/claude/CLAUDE.md) as `~/.claude/CLAUDE.md`
+- [`../ai/codex/AGENTS.md`](/Users/ds/code/dotfiles/ai/codex/AGENTS.md) as `~/.codex/AGENTS.md`
+- [`../ai/codex/skills/codex-init/`](/Users/ds/code/dotfiles/ai/codex/skills/codex-init/SKILL.md) as `~/.agents/skills/codex-init`
 
-For Codex user config, the role seeds [`../codex-config.toml`](/Users/ds/code/dotfiles/codex-config.toml) into `~/.codex/config.toml` only when that file does not already exist. If `~/.codex/config.toml` is already present, the role leaves it untouched so local trust settings and notice state are preserved.
+For Codex user config, the role seeds [`../ai/codex/config.toml`](/Users/ds/code/dotfiles/ai/codex/config.toml) into `~/.codex/config.toml` only when that file does not already exist. If `~/.codex/config.toml` is already present, the role leaves it untouched so local trust settings and notice state are preserved.
 
 See [`../README.md`](/Users/ds/code/dotfiles/README.md) for the full Claude and Codex setup notes.
