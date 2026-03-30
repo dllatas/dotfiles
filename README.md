@@ -15,10 +15,15 @@ Personal workstation bootstrap for macOS, centered on Ansible-managed setup and 
 
 Claude Code reads global instructions from `~/.claude/CLAUDE.md`.
 
-This repo keeps that content in [`ai/claude/CLAUDE.md`](/Users/ds/code/dotfiles/ai/claude/CLAUDE.md). The Ansible playbook installs it automatically, or you can wire it manually:
+This repo keeps the stable Claude files in:
 
-1. Keep the canonical content in `ai/claude/CLAUDE.md`
-2. Run the Ansible playbook or symlink it into `~/.claude/CLAUDE.md`
+- [`ai/claude/CLAUDE.md`](/Users/ds/code/dotfiles/ai/claude/CLAUDE.md): global instructions installed as `~/.claude/CLAUDE.md`
+- [`ai/claude/settings.json`](/Users/ds/code/dotfiles/ai/claude/settings.json): Claude settings installed as `~/.claude/settings.json`
+
+The Ansible playbook installs them automatically, or you can wire them manually:
+
+1. Keep the canonical Claude files in `ai/claude/CLAUDE.md` and `ai/claude/settings.json`
+2. Run the Ansible playbook or symlink them into `~/.claude/`
 3. Restart Claude Code sessions so the global instructions are picked up
 
 From the repo root:
@@ -26,15 +31,17 @@ From the repo root:
 ```bash
 mkdir -p ~/.claude
 ln -sf "$PWD/ai/claude/CLAUDE.md" ~/.claude/CLAUDE.md
+ln -sf "$PWD/ai/claude/settings.json" ~/.claude/settings.json
 ```
 
-To confirm it is wired correctly:
+To confirm they are wired correctly:
 
 ```bash
 ls -l ~/.claude/CLAUDE.md
+ls -l ~/.claude/settings.json
 ```
 
-The symlink target should point back to this repo's Claude config file.
+Both symlink targets should point back to this repo's Claude files.
 
 This repo also tracks the global Claude onboarding skill in [`ai/claude/skills/claude-init/`](/Users/ds/code/dotfiles/ai/claude/skills/claude-init/SKILL.md), the global Claude commit-writing skill in [`ai/claude/skills/write-commits/`](/Users/ds/code/dotfiles/ai/claude/skills/write-commits/SKILL.md), and the global Claude PR-creation skill in [`ai/claude/skills/create-pr/`](/Users/ds/code/dotfiles/ai/claude/skills/create-pr/SKILL.md). The playbook installs them as `~/.claude/skills/claude-init`, `~/.claude/skills/write-commits`, and `~/.claude/skills/create-pr`.
 
@@ -70,8 +77,6 @@ The Ansible playbook seeds `~/.codex/config.toml` from [`ai/codex/config.toml`](
 
 The tracked defaults currently set `approval_policy = "on-request"` with `sandbox_mode = "danger-full-access"`. That combination gives Codex full local filesystem access, including Git metadata writes such as creating worktrees or branches, while still allowing approval prompts when the agent wants to ask before doing something sensitive.
 
-The tracked defaults currently set `approval_policy = "never"` with `sandbox_mode = "workspace-write"`. That combination keeps Codex sandboxed but avoids routine approval prompts for commands such as `git add`; sandbox failures still return to the agent for handling.
-
 The playbook also installs the global `codex-init` skill by symlinking [`ai/codex/skills/codex-init/`](/Users/ds/code/dotfiles/ai/codex/skills/codex-init/SKILL.md) into `~/.agents/skills/codex-init`.
 It also installs the global `write-commits` skill by symlinking [`ai/codex/skills/write-commits/`](/Users/ds/code/dotfiles/ai/codex/skills/write-commits/SKILL.md) into `~/.agents/skills/write-commits`.
 It also installs the global `create-pr` skill by symlinking [`ai/codex/skills/create-pr/`](/Users/ds/code/dotfiles/ai/codex/skills/create-pr/SKILL.md) into `~/.agents/skills/create-pr`.
@@ -95,6 +100,7 @@ If you already have `~/.codex/config.toml`, merge the stable defaults from [`ai/
 The Claude and Codex files serve different products and layers, but they should express the same working preferences where that makes sense:
 
 - `ai/claude/CLAUDE.md` for Claude global instructions
+- `ai/claude/settings.json` for stable Claude settings
 - `ai/claude/skills/claude-init/` for the global Claude repo-onboarding skill
 - `ai/claude/skills/write-commits/` for the global Claude commit-writing skill
 - `ai/claude/skills/create-pr/` for the global Claude PR-creation skill

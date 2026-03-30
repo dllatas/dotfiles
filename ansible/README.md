@@ -51,7 +51,7 @@ ansible-playbook -i production.ini main.yaml
 
 - The inventory targets `127.0.0.1` with `ansible_connection=local`, so this is meant to configure the current machine directly.
 - `nodejs` downloads and runs the `nvm` install script, then installs the latest LTS release.
-- `kitty` downloads external installers and fonts, changes the login shell to `zsh`, and symlinks config into `~/.config/kitty`.
+- `kitty` downloads external installers and fonts, changes the login shell to `zsh`, and symlinks kitty plus shell config into your home directory.
 - `lazyvim` backs up existing Neovim state to `*.bak`, clones the LazyVim starter if needed, and symlinks the repo's Lua files into `~/.config/nvim`.
 
 ## AI Agent Config
@@ -59,6 +59,7 @@ ansible-playbook -i production.ini main.yaml
 The `ai-agents` role installs these global files:
 
 - [`../ai/claude/CLAUDE.md`](/Users/ds/code/dotfiles/ai/claude/CLAUDE.md) as `~/.claude/CLAUDE.md`
+- [`../ai/claude/settings.json`](/Users/ds/code/dotfiles/ai/claude/settings.json) as `~/.claude/settings.json`
 - [`../ai/claude/skills/claude-init/`](/Users/ds/code/dotfiles/ai/claude/skills/claude-init/SKILL.md) as `~/.claude/skills/claude-init`
 - [`../ai/claude/skills/write-commits/`](/Users/ds/code/dotfiles/ai/claude/skills/write-commits/SKILL.md) as `~/.claude/skills/write-commits`
 - [`../ai/claude/skills/create-pr/`](/Users/ds/code/dotfiles/ai/claude/skills/create-pr/SKILL.md) as `~/.claude/skills/create-pr`
