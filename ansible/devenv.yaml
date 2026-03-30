@@ -1,9 +1,10 @@
 ---
 - hosts: local
   vars:
-    user: ds
+    user: haroki
   roles:
     - brew
+    - git
     - nodejs
     - kitty
     - lazyvim
