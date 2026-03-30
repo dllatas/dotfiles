@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create PR"
+  short_description: "Verify the base branch and draft strong PR metadata"
+  default_prompt: "Use $create-pr to verify the target branch and draft a pull request title and description for the current branch."

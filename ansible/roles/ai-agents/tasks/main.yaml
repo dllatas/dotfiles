@@ -44,6 +44,13 @@
     state: link
     force: true
 
+- name: Symlink global create-pr Claude skill
+  file:
+    src: "{{ dotfiles_path }}/ai/claude/skills/create-pr"
+    dest: "{{ claude_skills_path }}/create-pr"
+    state: link
+    force: true
+
 - name: Symlink global Codex instructions
   file:
     src: "{{ dotfiles_path }}/ai/codex/AGENTS.md"
@@ -62,6 +69,13 @@
   file:
     src: "{{ dotfiles_path }}/ai/codex/skills/write-commits"
     dest: "{{ codex_skills_path }}/write-commits"
+    state: link
+    force: true
+
+- name: Symlink global create-pr skill
+  file:
+    src: "{{ dotfiles_path }}/ai/codex/skills/create-pr"
+    dest: "{{ codex_skills_path }}/create-pr"
     state: link
     force: true
 

@@ -36,7 +36,7 @@ ls -l ~/.claude/CLAUDE.md
 
 The symlink target should point back to this repo's Claude config file.
 
-This repo also tracks the global Claude onboarding skill in [`ai/claude/skills/claude-init/`](/Users/ds/code/dotfiles/ai/claude/skills/claude-init/SKILL.md) and the global Claude commit-writing skill in [`ai/claude/skills/write-commits/`](/Users/ds/code/dotfiles/ai/claude/skills/write-commits/SKILL.md). The playbook installs them as `~/.claude/skills/claude-init` and `~/.claude/skills/write-commits`.
+This repo also tracks the global Claude onboarding skill in [`ai/claude/skills/claude-init/`](/Users/ds/code/dotfiles/ai/claude/skills/claude-init/SKILL.md), the global Claude commit-writing skill in [`ai/claude/skills/write-commits/`](/Users/ds/code/dotfiles/ai/claude/skills/write-commits/SKILL.md), and the global Claude PR-creation skill in [`ai/claude/skills/create-pr/`](/Users/ds/code/dotfiles/ai/claude/skills/create-pr/SKILL.md). The playbook installs them as `~/.claude/skills/claude-init`, `~/.claude/skills/write-commits`, and `~/.claude/skills/create-pr`.
 
 ### OpenAI Codex
 
@@ -51,6 +51,7 @@ This repo tracks both:
 - [`ai/codex/AGENTS.md`](/Users/ds/code/dotfiles/ai/codex/AGENTS.md): global instructions installed as `~/.codex/AGENTS.md`
 - [`ai/codex/skills/codex-init/`](/Users/ds/code/dotfiles/ai/codex/skills/codex-init/SKILL.md): a global Codex skill installed at `~/.agents/skills/codex-init`
 - [`ai/codex/skills/write-commits/`](/Users/ds/code/dotfiles/ai/codex/skills/write-commits/SKILL.md): a global Codex skill installed at `~/.agents/skills/write-commits`
+- [`ai/codex/skills/create-pr/`](/Users/ds/code/dotfiles/ai/codex/skills/create-pr/SKILL.md): a global Codex skill installed at `~/.agents/skills/create-pr`
 
 The Ansible playbook installs the global instructions file automatically. Manual fallback:
 
@@ -71,6 +72,7 @@ The tracked defaults currently set `approval_policy = "never"` with `sandbox_mod
 
 The playbook also installs the global `codex-init` skill by symlinking [`ai/codex/skills/codex-init/`](/Users/ds/code/dotfiles/ai/codex/skills/codex-init/SKILL.md) into `~/.agents/skills/codex-init`.
 It also installs the global `write-commits` skill by symlinking [`ai/codex/skills/write-commits/`](/Users/ds/code/dotfiles/ai/codex/skills/write-commits/SKILL.md) into `~/.agents/skills/write-commits`.
+It also installs the global `create-pr` skill by symlinking [`ai/codex/skills/create-pr/`](/Users/ds/code/dotfiles/ai/codex/skills/create-pr/SKILL.md) into `~/.agents/skills/create-pr`.
 
 If you manage it manually, prefer copying or merging the tracked defaults instead of symlinking blindly. Codex user config often also contains local trust settings and notice state that are specific to one machine.
 
@@ -93,10 +95,12 @@ The Claude and Codex files serve different products and layers, but they should 
 - `ai/claude/CLAUDE.md` for Claude global instructions
 - `ai/claude/skills/claude-init/` for the global Claude repo-onboarding skill
 - `ai/claude/skills/write-commits/` for the global Claude commit-writing skill
+- `ai/claude/skills/create-pr/` for the global Claude PR-creation skill
 - `ai/codex/AGENTS.md` for Codex global instructions
 - `ai/codex/config.toml` for Codex stable user defaults
 - `ai/codex/skills/codex-init/` for the global Codex repo-onboarding skill
 - `ai/codex/skills/write-commits/` for the global Codex commit-writing skill
+- `ai/codex/skills/create-pr/` for the global Codex PR-creation skill
 
 Both global instruction files now tell the agents to create and work from a git worktree in git repositories instead of editing directly in the current checkout, unless you explicitly override that for a task.
 
