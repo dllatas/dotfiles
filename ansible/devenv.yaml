@@ -1,11 +1,15 @@
 ---
 - hosts: local
   roles:
-    - brew
-    - git
-    - nodejs
-    - kitty
-    - lazyvim
+    - role: brew
+      tags: [brew]
+    - role: git
+      tags: [git]
+    - role: nodejs
+      tags: [nodejs]
+    - role: kitty
+      tags: [kitty]
+    - role: lazyvim
+      tags: [lazyvim]
     - role: ai-agents
-      tags:
-        - ai-agents
+      tags: [ai-agents]
