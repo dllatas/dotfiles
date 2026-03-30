@@ -1,7 +1,5 @@
 ---
 - hosts: local
-  vars:
-    user: haroki
   roles:
     - brew
     - git

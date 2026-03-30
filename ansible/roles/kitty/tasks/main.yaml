@@ -24,53 +24,53 @@
 
 - name: Set user shell to zsh
   ansible.builtin.user:
-    name: "{{ user }}"
+    name: "{{ ansible_user_id }}"
     shell: /bin/zsh
 
 - name: Download ohmyzsh
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-    dest: "/Users/{{ user }}/install.sh"
+    dest: "{{ ansible_env.HOME }}/install.sh"
     mode: '0755'
 
 - name: Install oh-my-zsh if not present
   ansible.builtin.stat:
-    path: "/Users/{{ user }}/.oh-my-zsh"
+    path: "{{ ansible_env.HOME }}/.oh-my-zsh"
   register: ohmyzsh_dir
 
 - name: Run oh-my-zsh installer script
   ansible.builtin.script:
-    cmd: "/Users/{{ user }}/install.sh"
+    cmd: "{{ ansible_env.HOME }}/install.sh"
   when: not ohmyzsh_dir.stat.exists
 
 - name: Install PowerLevel10K
   ansible.builtin.git:
     repo: https://github.com/romkatv/powerlevel10k.git
-    dest: "/Users/{{ user }}/powerlevel10k"
+    dest: "{{ ansible_env.HOME }}/powerlevel10k"
     depth: 1
 
 - name: Download NerdFonts
   ansible.builtin.get_url:
     url: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.3.3/Meslo.zip
-    dest: "/Users/{{ user }}/Meslo.zip"
+    dest: "{{ ansible_env.HOME }}/Meslo.zip"
 
 - name: Create temp directory
   ansible.builtin.file:
-    path: "/Users/{{ user }}/Meslo"
+    path: "{{ ansible_env.HOME }}/Meslo"
     state: directory
     mode: '0755'
 
 - name: Install font files
   ansible.builtin.unarchive:
-    src: "/Users/{{ user }}/Meslo.zip"
-    dest: "/Users/{{ user }}/Meslo"
+    src: "{{ ansible_env.HOME }}/Meslo.zip"
+    dest: "{{ ansible_env.HOME }}/Meslo"
 
 - name: Copy Meslo fonts to user font directory
   ansible.builtin.copy:
-    src: "/Users/{{ user }}/Meslo/"
-    dest: "/Users/{{ user }}/Library/Fonts/"
+    src: "{{ ansible_env.HOME }}/Meslo/"
+    dest: "{{ ansible_env.HOME }}/Library/Fonts/"
     mode: '0644'
-    owner: "{{ user }}"
+    owner: "{{ ansible_user_id }}"
     group: staff
 
 - name: Symlink pl10k config file
