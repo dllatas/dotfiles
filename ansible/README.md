@@ -59,6 +59,7 @@ ansible-playbook -i production.ini main.yaml
 The `ai-agents` role installs these global files:
 
 - [`../ai/claude/CLAUDE.md`](/Users/ds/code/dotfiles/ai/claude/CLAUDE.md) as `~/.claude/CLAUDE.md`
+- [`../ai/claude/skills/claude-init/`](/Users/ds/code/dotfiles/ai/claude/skills/claude-init/SKILL.md) as `~/.claude/skills/claude-init`
 - [`../ai/codex/AGENTS.md`](/Users/ds/code/dotfiles/ai/codex/AGENTS.md) as `~/.codex/AGENTS.md`
 - [`../ai/codex/skills/codex-init/`](/Users/ds/code/dotfiles/ai/codex/skills/codex-init/SKILL.md) as `~/.agents/skills/codex-init`
 
