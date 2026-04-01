@@ -45,3 +45,13 @@
 ## Dependencies
 - Prefer existing helpers before introducing new abstractions
 - Minimize new dependencies; check if the standard library or existing deps cover the need
+
+## Agent Behavior
+- Think before writing; read relevant files before producing code — do not start coding based on assumptions
+- Keep output concise: no flattering preambles, no closing fluff, answer directly
+- Prefer targeted edits over full file rewrites unless the change genuinely requires rewriting
+- Read each file once per task unless it was modified since last read
+- Favor the simplest direct fix; resist over-engineering
+- Use available CLI tools: prefer `gh` for GitHub operations, installed linters/formatters for checks
+- Re-read the project CLAUDE.md at the start of every new task to refresh context
+- When user instructions conflict with these defaults, follow the user

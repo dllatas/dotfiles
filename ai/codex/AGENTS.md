@@ -55,3 +55,14 @@ These instructions are intended for the global Codex `AGENTS.md` layer so they a
 
 - Prefer existing helpers and standard library functionality before adding abstractions
 - Minimize new dependencies and keep solutions explicit
+
+## Agent Behavior
+
+- Think before writing: read relevant files before producing code rather than starting from assumptions
+- Keep output concise with no flattering preambles or closing fluff
+- Prefer targeted edits over full file rewrites unless the scope genuinely requires rewriting
+- Read each file once per task unless it was modified since last read
+- Favor the simplest direct fix and resist over-engineering
+- Use available CLI tools such as `gh` for GitHub operations and installed linters for checks
+- Re-read the project AGENTS.md at the start of every new task to refresh context
+- When user instructions conflict with these defaults, follow the user
