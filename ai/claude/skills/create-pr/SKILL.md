@@ -5,7 +5,6 @@ description: >
   drafting a concise PR summary, and inferring a strong PR title from that
   summary. Use this skill whenever someone asks to create a PR, open a pull
   request, draft PR metadata, or sanity-check the branch a PR should target.
-disable-model-invocation: true
 argument-hint: "[optional-base-branch]"
 ---
 
@@ -23,12 +22,13 @@ Create pull requests with an explicit target branch and reviewable metadata.
 ## Workflow
 
 1. If the repository policy is to work in a git worktree, create or switch into that worktree before preparing the PR.
-2. Identify the current branch and confirm it is the branch that should be proposed.
-3. Verify the intended base branch explicitly using repository docs, git remote defaults, branch tracking info, or direct user guidance.
-4. Review the diff against that base branch so the PR description reflects the actual change set.
-5. Draft a short PR summary that explains the problem solved, the key changes, and any important reviewer context.
-6. Infer the PR title from that summary, keeping it concise and aligned with the repository's conventions.
-7. Create the PR with the verified base branch instead of relying on a default target.
+2. Check for uncommitted changes (staged, unstaged, or untracked). If any exist, commit them first by following the /write-commits skill before proceeding.
+3. Identify the current branch and confirm it is the branch that should be proposed.
+4. Verify the intended base branch explicitly using repository docs, git remote defaults, branch tracking info, or direct user guidance.
+5. Review the diff against that base branch so the PR description reflects the actual change set.
+6. Draft a short PR summary that explains the problem solved, the key changes, and any important reviewer context.
+7. Infer the PR title from that summary, keeping it concise and aligned with the repository's conventions.
+8. Create the PR with the verified base branch instead of relying on a default target.
 
 ## Base Branch Checks
 
