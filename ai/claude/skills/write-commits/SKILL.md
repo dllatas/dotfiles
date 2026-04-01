@@ -6,7 +6,6 @@ description: >
   this skill whenever someone asks to write commits, split work into several
   commits, draft commit messages, clean up history before pushing, or prepare a
   branch for review.
-disable-model-invocation: true
 argument-hint: "[optional-commit-scope]"
 ---
 
