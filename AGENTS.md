@@ -9,6 +9,10 @@ This repository is a personal macOS workstation bootstrap centered on Ansible, t
 - `ai/codex/`: canonical Codex global instructions, config, and skills tracked in this repo
 - `README.md`: human-facing setup notes
 
+## Worktrees
+
+Do not use git worktrees for tasks in this repo. The Ansible playbook manages symlinks that always resolve to the main checkout root (via `git rev-parse --git-common-dir`). Changes made in a worktree will not be reflected in the live symlinks until merged to main, making worktree-based testing useless and potentially misleading. Edit and test directly in the main checkout.
+
 ## Commands
 
 - Read the setup docs first: `sed -n '1,220p' README.md`
