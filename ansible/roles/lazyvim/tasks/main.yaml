@@ -30,7 +30,7 @@
 
 - name: Find LazyVim config files to symlink (preserving structure)
   find:
-    paths: "{{ role_path }}/files"
+    paths: "{{ dotfiles_path }}/ansible/roles/lazyvim/files"
     file_type: file
     recurse: yes
   register: lazyvim_files
