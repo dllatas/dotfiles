@@ -1,5 +1,17 @@
 ---
 - hosts: local
+  pre_tasks:
+    - name: Resolve canonical dotfiles root (main worktree, not a linked worktree)
+      command: git -C "{{ playbook_dir }}" rev-parse --path-format=absolute --git-common-dir
+      register: git_common_dir
+      changed_when: false
+      tags: always
+
+    - name: Set dotfiles_path to main worktree root
+      set_fact:
+        dotfiles_path: "{{ git_common_dir.stdout | regex_replace('/\\.git$', '') }}"
+      tags: always
+
   roles:
     - role: brew
       tags: [brew]
