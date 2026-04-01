@@ -23,6 +23,8 @@ the project's stack, conventions, and workflows.
 3. **.claude/commands/** — Slash commands for common workflows
 4. **.claude/settings.json** — Shared team permissions
 5. **.gitignore entries** — Keep local-only state out of VCS
+6. **MEMORY.md** *(optional)* — Agent-maintained discoveries file
+7. **BACKLOG.md** *(optional)* — Lightweight task tracking
 
 ## Step 1: Discover the Project
 
@@ -230,7 +232,65 @@ Append these entries if not already present:
 .claude/worktrees/
 ```
 
-## Step 7: Present to User
+## Step 7: Optional Project Scaffolding
+
+Create these only when they add clear value for this specific project. Ask the
+user if unsure — don't generate them by default.
+
+### MEMORY.md
+
+Create when the repo has non-obvious pitfalls or architecture details worth
+preserving across sessions. Keep it under 100 lines and focus on things that
+are hard to rediscover from the code alone:
+
+- Architecture overview (how the major pieces connect)
+- Build/test command gotchas (env vars required, order-dependent steps)
+- Non-obvious pitfalls discovered during onboarding
+- Test infrastructure quirks (seeds, fixtures, external dependencies)
+
+Do not duplicate the README. The audience is an agent resuming work, not a
+new human contributor. Update it during work whenever something non-obvious
+is discovered.
+
+```markdown
+# Project Memory
+
+## Architecture
+[How the major pieces connect — not what the README says, but what a dev
+ needs to know to not break things]
+
+## Build & Test Gotchas
+[Order-dependent steps, required env vars, known flakiness]
+
+## Non-obvious Pitfalls
+[Things that look safe but aren't; edge cases that have burned people before]
+
+## Test Infrastructure
+[Seeds, fixtures, external service dependencies, snapshot update commands]
+```
+
+### BACKLOG.md
+
+Create when the project has no external task tracker (Linear, GitHub Issues,
+Jira) or when the user wants agent-managed task lists. Use three sections:
+
+```markdown
+# Backlog
+
+## Todo
+- [ ] item
+
+## In Progress
+- [ ] item currently being worked on
+
+## Completed
+- [x] item that is done
+```
+
+Agent workflow: check off items as each unit of work completes, and include
+the checkbox update in the same commit as the change.
+
+## Step 8: Present to User
 
 After generating everything, present a summary:
 

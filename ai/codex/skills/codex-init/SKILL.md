@@ -24,6 +24,8 @@ Possible outputs, in priority order:
 2. Nested `AGENTS.md` files only where a subdirectory genuinely needs different rules
 3. `.codex/config.toml` only when the repo needs project-scoped Codex overrides
 4. `.agents/skills/<skill-name>/` only when the repo has a repeatable workflow that deserves a reusable skill
+5. `MEMORY.md` *(optional)* — agent-maintained discoveries file
+6. `BACKLOG.md` *(optional)* — lightweight task tracking when no external tracker is in use
 
 ## Step 1: Discover the Project
 
@@ -154,7 +156,60 @@ Only touch `.gitignore` if you create local-only Codex files that should not be 
 
 Do not add ignore rules for committed team files such as `AGENTS.md`, `.codex/config.toml`, or repo-local skills.
 
-## Step 8: Present the Result
+## Step 8: Optional Project Scaffolding
+
+Create these only when they add clear value for this specific project. Ask the
+user if unsure — don't generate them by default.
+
+### MEMORY.md
+
+Create when the repo has non-obvious pitfalls or architecture details worth
+preserving across agent sessions. Keep it under 100 lines and focus on:
+
+- Architecture overview (how the major pieces connect)
+- Build/test command gotchas (env vars required, order-dependent steps)
+- Non-obvious pitfalls discovered during onboarding
+- Test infrastructure quirks (seeds, fixtures, external dependencies)
+
+Update it during work whenever something non-obvious is discovered.
+
+```markdown
+# Project Memory
+
+## Architecture
+[How the major pieces connect]
+
+## Build & Test Gotchas
+[Order-dependent steps, required env vars, known flakiness]
+
+## Non-obvious Pitfalls
+[Things that look safe but aren't]
+
+## Test Infrastructure
+[Seeds, fixtures, external service dependencies]
+```
+
+### BACKLOG.md
+
+Create when the project has no external task tracker or the user wants
+agent-managed task lists. Use three sections:
+
+```markdown
+# Backlog
+
+## Todo
+- [ ] item
+
+## In Progress
+- [ ] item currently being worked on
+
+## Completed
+- [x] item that is done
+```
+
+Include checkbox updates in the same commit as the change they track.
+
+## Step 9: Present the Result
 
 After generating the setup:
 
