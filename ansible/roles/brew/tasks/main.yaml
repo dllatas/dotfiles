@@ -5,6 +5,7 @@
     state: present
   loop:
     - hashicorp/tap
+    - homebrew/autoupdate
 
 - name: Install Homebrew packages
   homebrew:
@@ -44,8 +45,10 @@
     - argocd
     - opentofu
     - hashicorp/tap/vault
+    - tailscale
 
     # AI / ML
+    - claude-code
     - ollama
 
     # Python tooling
@@ -58,6 +61,7 @@
   homebrew_cask:
     name: "{{ item }}"
     state: present
+    install_options: "force"
   loop:
     # Browsers
     - firefox
@@ -66,17 +70,19 @@
     # Containers & VMs
     - docker
     - utm
-    - vagrant
-    - virtualbox
 
     # Communication
     - discord
     - slack
 
+    # AI
+    - chatgpt
+    - claude
+    - codex
+
     # Security & networking
     - bitwarden
     - protonvpn
-    - tailscale
 
     # Fonts
     - font-atkinson-hyperlegible-mono
@@ -86,3 +92,8 @@
     - rectangle
     - vlc
     - db-browser-for-sqlite
+
+- name: Enable weekly brew autoupdate
+  command: brew autoupdate start --upgrade --cleanup 604800
+  args:
+    creates: ~/Library/LaunchAgents/com.github.domt4.homebrew-autoupdate.plist
