@@ -21,15 +21,22 @@ Create commit history that is easy to review, rebase, and understand later.
 - Use only the author identity already configured in the local git config for this repository.
 - Never add AI-agent co-author trailers or override authorship with `--author`.
 
+## Branch Safety
+
+- Before staging or committing, check the current branch with `git branch --show-current`.
+- If the current branch is `main` or `master`, **do not commit**. Instead, suggest creating a new branch for the changes and let the user decide the branch name.
+- Only proceed with commits once on a non-default branch.
+
 ## Workflow
 
-1. If the repository policy is to work in a git worktree, create or switch into that worktree before staging or committing.
-2. Inspect the working tree with `git status --short` and review the diff before staging anything.
-3. Split the changes into logical units. If a file mixes unrelated work, stage specific hunks instead of the whole file.
-4. For each unit, verify the staged diff is coherent and self-contained with `git diff --cached`.
-5. Commit each unit with a conventional-commit style subject when the repository uses that convention.
-6. Add a commit body when the reason, constraint, migration note, or tradeoff would not be obvious from the subject alone.
-7. If the branch must be synchronized before pushing, prefer `git fetch` plus rebase-based flows instead of merge commits.
+1. Check the current branch (see Branch Safety above). If on `main` or `master`, stop and suggest a branch.
+2. If the repository policy is to work in a git worktree, create or switch into that worktree before staging or committing.
+3. Inspect the working tree with `git status --short` and review the diff before staging anything.
+4. Split the changes into logical units. If a file mixes unrelated work, stage specific hunks instead of the whole file.
+5. For each unit, verify the staged diff is coherent and self-contained with `git diff --cached`.
+6. Commit each unit with a conventional-commit style subject when the repository uses that convention.
+7. Add a commit body when the reason, constraint, migration note, or tradeoff would not be obvious from the subject alone.
+8. If the branch must be synchronized before pushing, prefer `git fetch` plus rebase-based flows instead of merge commits.
 
 ## Commit Message Shape
 
