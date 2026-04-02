@@ -2,6 +2,22 @@
 
 Personal workstation bootstrap for macOS, centered on Ansible-managed setup and a shared Claude Code global preferences file.
 
+## Common Commands
+
+Run only the AI agent config from the repo root:
+
+```bash
+ansible-playbook -i ansible/production.ini ansible/main.yaml --tags ai-agents
+```
+
+If you are already inside `ansible/`, run:
+
+```bash
+ansible-playbook -i production.ini devenv.yaml --tags ai-agents
+```
+
+Without `--tags ai-agents`, the full playbook also runs roles such as `brew`, `kitty`, `nodejs`, and the other workstation setup tasks.
+
 ## What is here
 
 - `ansible/`: local playbooks and roles for the development environment
@@ -59,8 +75,8 @@ This repo tracks both:
 - [`ai/codex/skills/codex-init/`](/dotfiles/ai/codex/skills/codex-init/SKILL.md): a global Codex skill installed at `~/.agents/skills/codex-init`
 - [`ai/codex/skills/write-commits/`](/dotfiles/ai/codex/skills/write-commits/SKILL.md): a global Codex skill installed at `~/.agents/skills/write-commits`
 - [`ai/codex/skills/create-pr/`](/dotfiles/ai/codex/skills/create-pr/SKILL.md): a global Codex skill installed at `~/.agents/skills/create-pr`
-
 - [`ai/codex/skills/update-docs/`](/dotfiles/ai/codex/skills/update-docs/SKILL.md): a global Codex skill installed at `~/.agents/skills/update-docs`
+
 The Ansible playbook installs the global instructions file automatically. Manual fallback:
 
 ```bash
@@ -81,9 +97,9 @@ The tracked defaults currently set `approval_policy = "on-request"` with `sandbo
 The playbook also installs the global `codex-init` skill by symlinking [`ai/codex/skills/codex-init/`](/dotfiles/ai/codex/skills/codex-init/SKILL.md) into `~/.agents/skills/codex-init`.
 It also installs the global `write-commits` skill by symlinking [`ai/codex/skills/write-commits/`](/dotfiles/ai/codex/skills/write-commits/SKILL.md) into `~/.agents/skills/write-commits`.
 It also installs the global `create-pr` skill by symlinking [`ai/codex/skills/create-pr/`](/dotfiles/ai/codex/skills/create-pr/SKILL.md) into `~/.agents/skills/create-pr`.
+It also installs the global `update-docs` skill by symlinking [`ai/codex/skills/update-docs/`](/dotfiles/ai/codex/skills/update-docs/SKILL.md) into `~/.agents/skills/update-docs`.
 
 If you manage it manually, prefer copying or merging the tracked defaults instead of symlinking blindly. Codex user config often also contains local trust settings and notice state that are specific to one machine.
-It also installs the global `update-docs` skill by symlinking [`ai/codex/skills/update-docs/`](/dotfiles/ai/codex/skills/update-docs/SKILL.md) into `~/.agents/skills/update-docs`.
 
 Example starting point:
 
@@ -106,17 +122,17 @@ The Claude and Codex files serve different products and layers, but they should 
 - `ai/claude/skills/claude-init/` for the global Claude repo-onboarding skill
 - `ai/claude/skills/write-commits/` for the global Claude commit-writing skill
 - `ai/claude/skills/create-pr/` for the global Claude PR-creation skill
+- `ai/claude/skills/update-docs/` for the global Claude doc-maintenance skill
 - `ai/codex/AGENTS.md` for Codex global instructions
 - `ai/codex/config.toml` for Codex stable user defaults
 - `ai/codex/skills/codex-init/` for the global Codex repo-onboarding skill
-- `ai/claude/skills/update-docs/` for the global Claude doc-maintenance skill
 - `ai/codex/skills/write-commits/` for the global Codex commit-writing skill
 - `ai/codex/skills/create-pr/` for the global Codex PR-creation skill
+- `ai/codex/skills/update-docs/` for the global Codex doc-maintenance skill
 
 Both global instruction files now tell the agents to create and work from a git worktree in git repositories instead of editing directly in the current checkout, unless you explicitly override that for a task.
 
 If you update one of these, review the others so the guidance does not drift.
-- `ai/codex/skills/update-docs/` for the global Codex doc-maintenance skill
 
 ## How to run
 
@@ -182,6 +198,6 @@ ansible-playbook -i ansible/production.ini ansible/main.yaml --check
 | `brew` | Homebrew formulae and casks |
 | `git` | Global `~/.gitconfig` |
 | `nodejs` | nvm + Node.js LTS |
-| `kitty` | Kitty terminal, zsh, oh-my-zsh, Powerlevel10k, Meslo Nerd Font |
+| `kitty` | Kitty terminal, zsh, oh-my-zsh, Powerlevel10k, Atkinson Hyperlegible Next, Meslo Nerd Font glyph fallback |
 | `lazyvim` | LazyVim starter + Neovim Lua configs |
 | `ai-agents` | Claude Code and Codex global configs, settings, and skills |

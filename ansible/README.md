@@ -17,7 +17,7 @@ The `devenv` playbook applies these roles:
 | `brew` | `brew` | Homebrew formulae and casks |
 | `git` | `git` | Global `~/.gitconfig` |
 | `nodejs` | `nodejs` | nvm + Node.js LTS |
-| `kitty` | `kitty` | Kitty terminal, zsh, oh-my-zsh, Powerlevel10k, Meslo Nerd Font |
+| `kitty` | `kitty` | Kitty terminal, zsh, oh-my-zsh, Powerlevel10k, Atkinson Hyperlegible Next, Meslo Nerd Font glyph fallback |
 | `lazyvim` | `lazyvim` | LazyVim starter + Neovim Lua configs |
 | `ai-agents` | `ai-agents` | Claude Code and Codex global configs, settings, and skills |
 
