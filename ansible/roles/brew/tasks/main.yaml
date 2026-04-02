@@ -21,6 +21,7 @@
     - pyenv
 
     # Shell
+    - bash
     - zsh
 
     # Editors
@@ -29,16 +30,21 @@
     # CLI utilities
     - bat
     - coreutils
+    - frpc
+    - fzf
     - gnupg
     - jq
     - ripgrep
     - tlrc
+    - watch
 
     # Containers & orchestration
     - dive
     - helm
     - k9s
+    - kubescape
     - kubernetes-cli
+    - lima
 
     # Infrastructure & GitOps
     - ansible
@@ -69,7 +75,7 @@
     - google-chrome
 
     # Containers & VMs
-    - docker
+    - docker-desktop
     - utm
 
     # Communication
