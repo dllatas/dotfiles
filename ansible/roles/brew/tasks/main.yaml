@@ -49,6 +49,7 @@
 
     # AI / ML
     - claude-code
+    - llmfit
     - ollama
 
     # Python tooling
