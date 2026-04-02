@@ -38,3 +38,10 @@
     dest: "{{ claude_skills_path }}/create-pr"
     state: link
     force: true
+
+- name: Symlink update-docs skill
+  file:
+    src: "{{ dotfiles_path }}/ai/claude/skills/update-docs"
+    dest: "{{ claude_skills_path }}/update-docs"
+    state: link
+    force: true

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Update Docs"
+  short_description: "Scan code changes, update docs, and flag stale documentation"
+  default_prompt: "Use $update-docs to scan the relevant code and automation, update the affected docs and READMEs, and call out any stale documentation evidence."
