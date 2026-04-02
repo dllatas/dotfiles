@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(git status:*)",
+      "Bash(git branch:*)",
+      "Bash(ansible-playbook:*)",
+      "Bash(ansible-lint:*)",
+      "Bash(brew info:*)",
+      "Bash(brew tap:*)",
+      "Bash(brew commands:*)",
+      "Bash(brew tap-info:*)",
+      "Bash(brew help:*)",
+      "Bash(brew install:*)",
+      "Bash(brew search:*)",
+      "Bash(gh pr:*)",
+      "Bash(gh api:*)",
+      "Bash(ls:*)",
+      "WebSearch"
+    ]
+  }
+}
