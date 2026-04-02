@@ -36,7 +36,7 @@ ansible-playbook -i ansible/production.ini ansible/main.yaml --tags ai-agents
 ansible-playbook -i ansible/production.ini ansible/main.yaml --check
 ```
 
-The playbook detects the current user automatically via Ansible facts (`ansible_user_id`, `ansible_env.HOME`), so no per-machine edits are needed.
+The playbook detects the current user automatically via Ansible facts (`ansible_facts['user_id']`, `ansible_facts['env']['HOME']`), so no per-machine edits are needed.
 
 ## What to expect
 

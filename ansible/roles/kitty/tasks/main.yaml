@@ -5,14 +5,14 @@
 
 - name: Ensure kitty config directory exists
   file:
-    path: "{{ ansible_env.HOME }}/.config/kitty"
+    path: "{{ ansible_facts['env']['HOME'] }}/.config/kitty"
     state: directory
     mode: '0755'
 
 - name: Symlink kitty config files
   file:
     src: "{{ dotfiles_path }}/ansible/roles/kitty/files/{{ item }}"
-    dest: "{{ ansible_env.HOME }}/.config/kitty/{{ item }}"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.config/kitty/{{ item }}"
     state: link
     force: true
   loop: "{{ config_files }}"
@@ -24,41 +24,41 @@
 
 - name: Set user shell to zsh
   ansible.builtin.user:
-    name: "{{ ansible_user_id }}"
+    name: "{{ ansible_facts['user_id'] }}"
     shell: /bin/zsh
 
 - name: Download ohmyzsh
   ansible.builtin.get_url:
     url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
-    dest: "{{ ansible_env.HOME }}/install.sh"
+    dest: "{{ ansible_facts['env']['HOME'] }}/install.sh"
     mode: '0755'
 
 - name: Install oh-my-zsh if not present
   ansible.builtin.stat:
-    path: "{{ ansible_env.HOME }}/.oh-my-zsh"
+    path: "{{ ansible_facts['env']['HOME'] }}/.oh-my-zsh"
   register: ohmyzsh_dir
 
 - name: Run oh-my-zsh installer script
   ansible.builtin.script:
-    cmd: "{{ ansible_env.HOME }}/install.sh"
+    cmd: "{{ ansible_facts['env']['HOME'] }}/install.sh"
   when: not ohmyzsh_dir.stat.exists
 
 - name: Install PowerLevel10K
   ansible.builtin.git:
     repo: https://github.com/romkatv/powerlevel10k.git
-    dest: "{{ ansible_env.HOME }}/powerlevel10k"
+    dest: "{{ ansible_facts['env']['HOME'] }}/powerlevel10k"
     depth: 1
 
 - name: Symlink pl10k config file
   file:
     src: "{{ dotfiles_path }}/ansible/roles/kitty/files/.p10k.zsh"
-    dest: "{{ ansible_env.HOME }}/.p10k.zsh"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.p10k.zsh"
     state: link
     force: true
 
 - name: Symlink zsh config file
   file:
     src: "{{ dotfiles_path }}/ansible/roles/kitty/files/.zshrc"
-    dest: "{{ ansible_env.HOME }}/.zshrc"
+    dest: "{{ ansible_facts['env']['HOME'] }}/.zshrc"
     state: link
     force: true

@@ -47,7 +47,7 @@ ansible-playbook -i ansible/production.ini ansible/main.yaml --check
 
 - Role structure: each role has `tasks/main.yaml`, optional `defaults/main.yaml` and `files/`
 - Symlink sources use `{{ dotfiles_path }}` (resolved in `devenv.yaml` pre_tasks), never hardcoded paths
-- User-specific paths use `{{ ansible_env.HOME }}` and `{{ ansible_user_id }}`, never hardcoded usernames
+- User-specific paths use `{{ ansible_facts['env']['HOME'] }}` and `{{ ansible_facts['user_id'] }}`, never hardcoded usernames
 - Keep Homebrew lists in `roles/brew/tasks/main.yaml` sorted by category with comments
 - This repo is part of a larger dotfiles monorepo — the parent has AI config in `ai/claude/` and `ai/codex/`
 

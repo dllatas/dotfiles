@@ -5,7 +5,7 @@
 When reviewing changes to this Ansible project, verify:
 
 - Role structure is preserved: `tasks/main.yaml`, optional `defaults/main.yaml`, `files/`
-- No hardcoded usernames or home directory paths — use `{{ ansible_env.HOME }}` and `{{ ansible_user_id }}`
+- No hardcoded usernames or home directory paths — use `{{ ansible_facts['env']['HOME'] }}` and `{{ ansible_facts['user_id'] }}`
 - Symlink sources use `{{ dotfiles_path }}`, not absolute paths
 - Homebrew package lists remain sorted by category with comment headers
 - New roles are wired into `devenv.yaml` with a tag

@@ -3,7 +3,7 @@
   shell: |
     curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
   args:
-    creates: "{{ ansible_env.HOME }}/.nvm"
+    creates: "{{ ansible_facts['env']['HOME'] }}/.nvm"
 - name: Load NVM and install Node.js
   shell: |
     export NVM_DIR="$HOME/.nvm"
@@ -12,4 +12,4 @@
   args:
     executable: /bin/bash
   environment:
-    PROFILE: "{{ ansible_env.HOME }}/.zshrc"  # or .bashrc if you use bash
+    PROFILE: "{{ ansible_facts['env']['HOME'] }}/.zshrc"  # or .bashrc if you use bash
