@@ -1,15 +1,18 @@
 ---
 - name: Backup existing Neovim config dirs
-  shell: |
-    mv {{ item }}{,.bak}
+  command:
+    argv:
+      - mv
+      - "{{ item }}"
+      - "{{ item }}.bak"
   args:
-    removes: "{{ item }}.bak"
+    creates: "{{ item }}.bak"
+    removes: "{{ item }}"
   loop:
-    - "{{ ansible_env.HOME }}/.config/nvim"
-    - "{{ ansible_env.HOME }}/.local/share/nvim"
-    - "{{ ansible_env.HOME }}/.local/state/nvim"
-    - "{{ ansible_env.HOME }}/.cache/nvim"
-  ignore_errors: true
+    - "{{ ansible_facts['env']['HOME'] }}/.config/nvim"
+    - "{{ ansible_facts['env']['HOME'] }}/.local/share/nvim"
+    - "{{ ansible_facts['env']['HOME'] }}/.local/state/nvim"
+    - "{{ ansible_facts['env']['HOME'] }}/.cache/nvim"
 
 - name: Clone LazyVim starter if not present
   git:
