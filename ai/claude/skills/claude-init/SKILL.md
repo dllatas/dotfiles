@@ -80,6 +80,17 @@ superseded:
 - `CLAUDE.md` / `AGENTS.md` — if they exist, we're augmenting, not replacing
 - `.claude/` — check what already exists
 
+### Branch Freshness
+
+Before analyzing the repo, ensure you are working with up-to-date code:
+
+- Ask the user whether the current local branch is up-to-date with its remote.
+- If the user is unsure or confirms it may be stale, run `git fetch origin` and
+  compare `git rev-parse HEAD` with `git rev-parse @{u}` to check for upstream
+  changes. If behind, inform the user and ask whether to pull before continuing.
+- This prevents generating guidance based on outdated code, which leads to
+  incorrect commands, stale repo maps, or missing conventions.
+
 ### Git History Analysis
 
 Run `git log --oneline -20` to detect:
