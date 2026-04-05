@@ -31,6 +31,13 @@
 - PRs should reference the problem being solved, not just list files changed
 - In git repositories, create and use a git worktree for the task instead of editing in the current checkout unless the user explicitly asks otherwise
 - If a worktree cannot be created safely, stop and explain the blocker before working in the current checkout
+- When the user confirms a task is completely done, clean up the working branch:
+  1. Check for uncommitted changes and warn if any exist
+  2. Verify the branch was either merged or has an open PR (refuse to delete otherwise)
+  3. Switch back to the main branch (master or main) and pull the latest from origin
+  4. Remove the worktree (if used) and delete the local branch with `-d` (safe delete)
+  - It is fine to ask the user to confirm the task is done before starting cleanup
+  - Do not delete the remote branch — leave it as a backup
 
 ## Testing
 - Write tests for non-trivial logic; colocate test files (`*.test.ts` next to source)
