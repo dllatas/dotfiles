@@ -77,6 +77,20 @@ Check for:
 - `.agents/skills/`
 - Any existing Claude or agent-specific guidance that should be translated rather than replaced
 
+### Non-Obvious Patterns & Tribal Knowledge
+
+After reading the code and docs, do a targeted scan for knowledge that is not
+surfaced anywhere obvious. For each module or major subsystem, ask:
+
+1. What are the common modification patterns a developer would need to know?
+2. What non-obvious patterns cause build or runtime failures?
+3. What cross-module dependencies are implicit rather than declared?
+4. What tribal knowledge is buried in code comments, TODOs, or workaround blocks?
+
+Focus especially on questions 2 and 4 — these are where undocumented pitfalls
+live. Surface these in the AGENTS.md "Non-Obvious Patterns" section rather
+than leaving them buried in comments.
+
 ### Branch Freshness
 
 Before analyzing the repo, ensure you are working with up-to-date code:
@@ -96,7 +110,9 @@ Run `git log --oneline -20` to detect commit conventions and recent areas of cha
 
 Create or update a root `AGENTS.md` that helps Codex work effectively in this repository.
 
-Keep it specific, short, and operational. Good sections usually include:
+Keep it specific, short, and operational. Write in compressed fragment syntax: drop articles in list items, use `→` for causal chains, no prose in bullets. Put commands and high-risk areas at the top or bottom — LLM attention drops for content buried in the middle of long documents.
+
+Good sections usually include:
 
 - Purpose
 - Repo map
@@ -104,6 +120,7 @@ Keep it specific, short, and operational. Good sections usually include:
 - Editing rules
 - Testing expectations
 - High-risk areas
+- Non-obvious patterns
 - Commit style
 
 Prefer actual commands and paths. Avoid generic advice.
@@ -239,3 +256,8 @@ Before finishing, verify:
 - `.codex/config.toml` contains only repo-specific overrides
 - any repo-local skill has a clear trigger and compact instructions
 - no placeholder text remains
+
+**Critic pass:** re-read the generated AGENTS.md against the actual code and
+confirm each claim. Verify all referenced paths exist and all commands run from
+the documented location. A doc that names a file or command that does not exist
+is worse than no doc.

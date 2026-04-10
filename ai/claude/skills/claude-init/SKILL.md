@@ -80,6 +80,22 @@ superseded:
 - `CLAUDE.md` / `AGENTS.md` — if they exist, we're augmenting, not replacing
 - `.claude/` — check what already exists
 
+### Non-Obvious Patterns & Tribal Knowledge
+
+After reading the code and docs, do a targeted scan for knowledge that is not
+surfaced anywhere obvious. For each module or major subsystem, ask:
+
+1. What are the common modification patterns a developer would need to know?
+2. What non-obvious patterns cause build or runtime failures?
+3. What cross-module dependencies are implicit rather than declared?
+4. What tribal knowledge is buried in code comments, TODOs, or workaround blocks?
+
+Focus especially on questions 2 and 4 — these are where undocumented pitfalls
+live (e.g. hidden field naming conventions between pipeline stages, implicit
+ordering requirements, env vars that silently change behavior). Surface these
+in the CLAUDE.md "Non-Obvious Patterns" section rather than leaving them in
+comments no one reads.
+
 ### Branch Freshness
 
 Before analyzing the repo, ensure you are working with up-to-date code:
@@ -142,6 +158,13 @@ Replace or omit sections that don't apply.
 ## Known High-Risk Areas
 [Files or modules where accidental changes cause outsized breakage]
 
+## Non-Obvious Patterns
+[Tribal knowledge that is not documented anywhere else:
+ - Implicit ordering requirements
+ - Hidden naming conventions between subsystems
+ - Env vars or flags that silently alter behavior
+ - Workarounds and the bugs they paper over]
+
 ## Commit Style
 [Extracted from git history analysis]
 ```
@@ -156,6 +179,10 @@ Replace or omit sections that don't apply.
 - **Include the "why" for non-obvious rules.** If there's a reason behind
   a convention, explain it briefly so the agent can apply judgment in
   edge cases.
+- **Token budget:** this file loads into every session — every unnecessary line
+  costs attention. Drop articles in list items; use `→` for causal chains; no prose in bullets.
+- **Lost in the middle:** LLM attention drops sharply for content in the middle of long documents.
+  Put critical constraints (commands, high-risk areas) at the top or bottom — never only in the middle.
 
 ## Step 3: Draft AGENTS.md
 
@@ -332,3 +359,8 @@ Before presenting to the user, verify:
 - [ ] No placeholder text like "[TODO]" or "[fill in]" remains
 - [ ] .gitignore entries don't duplicate existing ones
 - [ ] Settings permissions match the project's actual toolchain
+
+**Critic pass:** re-read the generated CLAUDE.md against the actual code and
+confirm each claim. A doc that names a file, flag, or command that does not
+exist is worse than no doc. Verify all referenced paths exist and all commands
+run from the documented location.
