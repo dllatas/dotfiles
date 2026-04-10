@@ -4,6 +4,7 @@
     name: "{{ item }}"
     state: present
   loop:
+    - Arthur-Ficial/tap
     - hashicorp/tap
     - homebrew/autoupdate
 
@@ -54,9 +55,13 @@
     - tailscale
 
     # AI / ML
+    - Arthur-Ficial/tap/apfel
     - claude-code
     - llmfit
     - ollama
+    # NOTE: Lemonade (lemonade-server.ai) is NOT managed here — no Homebrew formula exists.
+    # macOS support is beta-only; install manually via .pkg from:
+    # https://github.com/lemonade-sdk/lemonade/releases/latest/download/Lemonade-<version>-Darwin.pkg
 
     # Python tooling
     - uv
