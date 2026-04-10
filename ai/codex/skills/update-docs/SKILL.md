@@ -25,9 +25,14 @@ Keep docs aligned with the code that actually exists.
 1. Inspect the changed code, config, scripts, and automation that define the real behavior.
 2. Search for docs, READMEs, agent guides, comments, and examples that mention that behavior.
 3. Compare documentation claims against the current implementation and note any stale or contradictory statements.
+   When scanning modules for what may need documentation, ask:
+   - What non-obvious patterns cause failures here?
+   - What cross-module dependencies are implicit rather than declared?
+   - What tribal knowledge is buried in comments, TODOs, or workaround blocks?
 4. Update the docs that should remain authoritative for that behavior.
-5. If some stale documentation is outside the requested scope or cannot be safely corrected yet, call it out clearly to the human instead of silently leaving it behind.
-6. Before finishing, verify that referenced paths, commands, and filenames still exist.
+5. **Critic pass:** re-read every section you changed and verify each claim against the current code.
+   A doc that names a file, flag, or command that no longer exists is worse than no doc.
+6. If some stale documentation is outside the requested scope or cannot be safely corrected yet, call it out clearly to the human instead of silently leaving it behind.
 
 ## What To Update
 
@@ -52,5 +57,6 @@ Do this even when you also fix the issue, so the human understands why the docum
 ## Before Finishing
 
 - Confirm the updated docs match the current code and automation.
+- Systematically verify every referenced path, file, command, and flag still exists — not just the ones you touched.
 - Check that commands are runnable from the documented location when the repo provides them.
 - Mention any remaining documentation gaps or unresolved ambiguity.
