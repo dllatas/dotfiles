@@ -9,6 +9,7 @@
 - TypeScript: strict mode always, `@/` path aliases, zod for validation
 - Go: standard library first, minimal dependencies, `go fmt` + `golangci-lint`
 - Python: type hints, ruff for linting, keep it minimal - only used for GenAI pipelines
+- Python one-offs: use `uv run --with <pkg> script.py` — never bare `python`; pyenv-managed Python won't see brew-installed packages
 - Node imports: use `node:` prefix for built-in modules (e.g., `import crypto from "node:crypto"`)
 - Prefer named exports; default exports only for React page/layout components
 
@@ -56,9 +57,12 @@
 ## Agent Behavior
 - Think before writing; read relevant files before producing code — do not start coding based on assumptions
 - Keep output concise: no flattering preambles, no closing fluff, answer directly
+- Fragment syntax in responses: drop articles in lists, no "Let me...", no "I'll now...", use `→` for causal chains
+- Front-load answers: key point first, not buried in the middle — attention drops sharply for middle content
 - Prefer targeted edits over full file rewrites unless the change genuinely requires rewriting
 - Read each file once per task unless it was modified since last read
 - Favor the simplest direct fix; resist over-engineering
 - Use available CLI tools: prefer `gh` for GitHub operations, installed linters/formatters for checks
+- Guidance files (CLAUDE.md, AGENTS.md, SKILL.md, memory) load every session; write them in compressed fragment syntax, keep them lean
 - Re-read the project CLAUDE.md at the start of every new task to refresh context
 - When user instructions conflict with these defaults, follow the user

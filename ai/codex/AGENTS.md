@@ -13,6 +13,7 @@ These instructions are intended for the global Codex `AGENTS.md` layer so they a
 - TypeScript: strict mode, `@/` path aliases when the project uses them, and zod for validation
 - Go: standard library first, minimal dependencies, `go fmt`, and `golangci-lint`
 - Python: type hints, ruff, and minimal dependencies
+- Python one-offs: use `uv run --with <pkg> script.py` — never bare `python`; pyenv-managed Python won't see brew-installed packages
 - Node.js imports: use the `node:` prefix for built-in modules
 - Prefer named exports; use default exports only where the framework expects them, such as React page and layout components
 
@@ -67,9 +68,12 @@ These instructions are intended for the global Codex `AGENTS.md` layer so they a
 
 - Think before writing: read relevant files before producing code rather than starting from assumptions
 - Keep output concise with no flattering preambles or closing fluff
+- Fragment syntax in responses: drop articles in lists, no "Let me...", no "I'll now...", use `→` for causal chains
+- Front-load answers: key point first, not buried in the middle — attention drops sharply for middle content
 - Prefer targeted edits over full file rewrites unless the scope genuinely requires rewriting
 - Read each file once per task unless it was modified since last read
 - Favor the simplest direct fix and resist over-engineering
 - Use available CLI tools such as `gh` for GitHub operations and installed linters for checks
+- Guidance files (AGENTS.md, SKILL.md, memory) load every session; write them in compressed fragment syntax, keep them lean
 - Re-read the project AGENTS.md at the start of every new task to refresh context
 - When user instructions conflict with these defaults, follow the user
