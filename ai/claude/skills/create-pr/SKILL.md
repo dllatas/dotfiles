@@ -25,10 +25,11 @@ Create pull requests with an explicit target branch and reviewable metadata.
 2. Check for uncommitted changes (staged, unstaged, or untracked). If any exist, commit them first by following the /write-commits skill before proceeding.
 3. Identify the current branch and confirm it is the branch that should be proposed.
 4. Verify the intended base branch explicitly using repository docs, git remote defaults, branch tracking info, or direct user guidance.
-5. Review the diff against that base branch so the PR description reflects the actual change set.
-6. Draft a short PR summary that explains the problem solved, the key changes, and any important reviewer context.
-7. Infer the PR title from that summary, keeping it concise and aligned with the repository's conventions.
-8. Create the PR with the verified base branch instead of relying on a default target.
+5. Check for merge conflicts by running `git merge-tree $(git merge-base HEAD <base>) HEAD <base>` or attempting a dry-run merge. If conflicts exist, resolve them automatically (see Conflict Resolution below) before continuing.
+6. Review the diff against that base branch so the PR description reflects the actual change set.
+7. Draft a short PR summary that explains the problem solved, the key changes, and any important reviewer context.
+8. Infer the PR title from that summary, keeping it concise and aligned with the repository's conventions.
+9. Create the PR with the verified base branch instead of relying on a default target.
 
 ## Base Branch Checks
 
@@ -56,6 +57,19 @@ Add extra reviewer notes only when they materially help with rollout, migration,
 - Write the summary first, then compress the main outcome into the title.
 - Prefer the user-visible or reviewer-relevant outcome over implementation detail.
 - Match the repository's style when it already uses a recognizable PR title pattern.
+
+## Conflict Resolution
+
+When merge conflicts are detected between the current branch and the base branch:
+
+1. Fetch the latest base branch: `git fetch origin <base>`.
+2. Rebase onto the base branch (`git rebase origin/<base>`) rather than merging, to keep history linear.
+3. For each conflicting file, read both sides of the conflict and resolve it automatically:
+   - Prefer the current branch's intent when it clearly implements the task at hand.
+   - Prefer the base branch's version when the current branch only touches unrelated lines near the conflict.
+   - When both sides make meaningful, non-overlapping changes, combine them so neither is lost.
+4. After resolving all conflicts, stage the files and continue the rebase (`git rebase --continue`).
+5. Only ask the user for guidance when the conflict is in a section where both sides make substantive, incompatible semantic changes and the correct resolution is genuinely ambiguous (e.g., conflicting business logic or API contracts). In that case, present the two versions clearly and ask for a decision before proceeding.
 
 ## Before Finishing
 
