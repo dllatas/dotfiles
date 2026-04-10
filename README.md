@@ -25,6 +25,7 @@ Without `--tags ai-agents`, the full playbook also runs roles such as `brew`, `k
 - `ai/codex/`: the shared global Codex config and skills
 - `AGENTS.md`: repo-scoped instructions for this dotfiles repo
 - `WATCHLIST.md`: tools evaluated but not yet adopted, with revisit dates
+- `BACKLOG.md`: improvements and tasks queued for this repo
 
 ## Agent config
 
