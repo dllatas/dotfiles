@@ -203,3 +203,24 @@ ansible-playbook -i ansible/production.ini ansible/main.yaml --check
 | `kitty` | Kitty terminal, zsh, oh-my-zsh, Powerlevel10k, Atkinson Hyperlegible Next, Meslo Nerd Font glyph fallback |
 | `lazyvim` | LazyVim starter + Neovim Lua configs |
 | `ai-agents` | Claude Code and Codex global configs, settings, and skills |
+
+## Cluster access
+
+The harokilabs k3s cluster is accessible from any workstation on the tailnet via the Tailscale Kubernetes operator. Tailscale itself is installed by the `brew` role.
+
+After joining the tailnet, configure `kubectl` to route through the operator:
+
+```bash
+tailscale configure kubeconfig harokilabs
+```
+
+This writes a `harokilabs` context to `~/.kube/config`. Switch to it with:
+
+```bash
+kubectl config use-context harokilabs
+kubectl get nodes
+```
+
+**Prerequisites:**
+- Tailscale must be installed and logged in (`tailscale login`)
+- Your Tailscale identity (`danllatas@gmail.com`) must be on the tailnet — the ACL grant maps it to `system:masters` via the operator's auth mode
