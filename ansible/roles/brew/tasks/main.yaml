@@ -57,6 +57,7 @@
     # AI / ML
     - Arthur-Ficial/tap/apfel
     - claude-code
+    - rtk
     - llmfit
     - ollama
     # NOTE: Lemonade (lemonade-server.ai) is NOT managed here — no Homebrew formula exists.
