@@ -36,6 +36,7 @@ Claude Code reads global instructions from `~/.claude/CLAUDE.md`.
 This repo keeps the stable Claude files in:
 
 - [`ai/claude/CLAUDE.md`](/dotfiles/ai/claude/CLAUDE.md): global instructions installed as `~/.claude/CLAUDE.md`
+- [`ai/claude/RTK.md`](/dotfiles/ai/claude/RTK.md): RTK usage guide imported by `CLAUDE.md`, installed as `~/.claude/RTK.md`
 - [`ai/claude/settings.json`](/dotfiles/ai/claude/settings.json): Claude settings installed as `~/.claude/settings.json`
 
 The Ansible playbook installs them automatically, or you can wire them manually:
@@ -49,6 +50,7 @@ From the repo root:
 ```bash
 mkdir -p ~/.claude
 ln -sf "$PWD/ai/claude/CLAUDE.md" ~/.claude/CLAUDE.md
+ln -sf "$PWD/ai/claude/RTK.md" ~/.claude/RTK.md
 ln -sf "$PWD/ai/claude/settings.json" ~/.claude/settings.json
 ```
 
@@ -56,6 +58,7 @@ To confirm they are wired correctly:
 
 ```bash
 ls -l ~/.claude/CLAUDE.md
+ls -l ~/.claude/RTK.md
 ls -l ~/.claude/settings.json
 ```
 
@@ -84,12 +87,14 @@ The Ansible playbook installs the global instructions file automatically. Manual
 ```bash
 mkdir -p ~/.codex
 ln -sf "$PWD/ai/codex/AGENTS.md" ~/.codex/AGENTS.md
+ln -sf "$PWD/ai/codex/RTK.md" ~/.codex/RTK.md
 ```
 
-Confirm it is wired correctly:
+Confirm they are wired correctly:
 
 ```bash
 ls -l ~/.codex/AGENTS.md
+ls -l ~/.codex/RTK.md
 ```
 
 The Ansible playbook seeds `~/.codex/config.toml` from [`ai/codex/config.toml`](/dotfiles/ai/codex/config.toml) when that file does not already exist. If `~/.codex/config.toml` is already present, the role reconciles the stable top-level defaults from the tracked file while preserving local `[projects]` trust entries and notice state.
@@ -120,12 +125,14 @@ If you already have `~/.codex/config.toml`, merge the stable defaults from [`ai/
 The Claude and Codex files serve different products and layers, but they should express the same working preferences where that makes sense:
 
 - `ai/claude/CLAUDE.md` for Claude global instructions
+- `ai/claude/RTK.md` for RTK usage guide (imported by CLAUDE.md)
 - `ai/claude/settings.json` for stable Claude settings
 - `ai/claude/skills/claude-init/` for the global Claude repo-onboarding skill
 - `ai/claude/skills/write-commits/` for the global Claude commit-writing skill
 - `ai/claude/skills/create-pr/` for the global Claude PR-creation skill
 - `ai/claude/skills/update-docs/` for the global Claude doc-maintenance skill
 - `ai/codex/AGENTS.md` for Codex global instructions
+- `ai/codex/RTK.md` for RTK usage guide (imported by AGENTS.md)
 - `ai/codex/config.toml` for Codex stable user defaults
 - `ai/codex/skills/codex-init/` for the global Codex repo-onboarding skill
 - `ai/codex/skills/write-commits/` for the global Codex commit-writing skill
