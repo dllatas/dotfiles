@@ -25,8 +25,10 @@ Do not use git worktrees for tasks in this repo. The Ansible playbook manages sy
 - Keep documentation aligned with the real install flow; do not describe automation that does not exist.
 - Preserve the current split:
   - `ai/claude/CLAUDE.md` is for Claude Code global instructions
+  - `ai/claude/RTK.md` is for RTK usage guidance imported by CLAUDE.md
   - `ai/claude/skills/` is for global Claude Code skills
   - `ai/codex/AGENTS.md` is for Codex global instructions
+  - `ai/codex/RTK.md` is for RTK usage guidance imported by AGENTS.md
   - `ai/codex/config.toml` is for Codex user-level defaults
   - `ai/codex/skills/` is for global Codex skills
   - `AGENTS.md` is for this repo's Codex-specific instructions only
