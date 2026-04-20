@@ -77,3 +77,5 @@ These instructions are intended for the global Codex `AGENTS.md` layer so they a
 - Guidance files (AGENTS.md, SKILL.md, memory) load every session; write them in compressed fragment syntax, keep them lean
 - Re-read the project AGENTS.md at the start of every new task to refresh context
 - When user instructions conflict with these defaults, follow the user
+
+@RTK.md
