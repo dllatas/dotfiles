@@ -41,7 +41,7 @@ This repo keeps the stable Claude files in:
 
 The Ansible playbook installs them automatically, or you can wire them manually:
 
-1. Keep the canonical Claude files in `ai/claude/CLAUDE.md` and `ai/claude/settings.json`
+1. Keep the canonical Claude files in `ai/claude/CLAUDE.md`, `ai/claude/RTK.md`, and `ai/claude/settings.json`
 2. Run the Ansible playbook or symlink them into `~/.claude/`
 3. Restart Claude Code sessions so the global instructions are picked up
 
