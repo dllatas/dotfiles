@@ -30,6 +30,13 @@
     state: link
     force: true
 
+- name: Symlink Claude RTK instructions
+  file:
+    src: "{{ dotfiles_path }}/ai/claude/RTK.md"
+    dest: "{{ claude_config_path }}/RTK.md"
+    state: link
+    force: true
+
 - name: Symlink Claude settings
   file:
     src: "{{ dotfiles_path }}/ai/claude/settings.json"
@@ -69,6 +76,13 @@
   file:
     src: "{{ dotfiles_path }}/ai/codex/AGENTS.md"
     dest: "{{ codex_config_path }}/AGENTS.md"
+    state: link
+    force: true
+
+- name: Symlink Codex RTK instructions
+  file:
+    src: "{{ dotfiles_path }}/ai/codex/RTK.md"
+    dest: "{{ codex_config_path }}/RTK.md"
     state: link
     force: true
 
