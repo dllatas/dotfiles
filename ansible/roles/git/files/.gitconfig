@@ -36,3 +36,5 @@
 	updateRefs = true
 [merge]
 	conflictstyle = zdiff3
+[safe]
+	directory = /Users/ds/code/helm-charts-pac-migration
