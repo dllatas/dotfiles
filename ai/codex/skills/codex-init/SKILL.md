@@ -2,10 +2,10 @@
 name: codex-init
 description: >
   Onboard any repository for use with OpenAI Codex by analyzing its structure
-  and generating a tailored AGENTS.md setup, optional project-scoped
+  and generating portable AGENTS.md-first guidance, optional project-scoped
   .codex/config.toml, and repo-local skill scaffolding when useful. Use this
   skill whenever someone asks to "set up Codex" for a project, "onboard a repo"
-  for Codex, "create AGENTS.md", "initialize Codex config", "add Codex project
+  for Codex, "create AGENTS.md", "initialize Codex config", "add portable agent
   guidance", or explicitly mentions "codex-init".
 ---
 
@@ -16,16 +16,57 @@ Analyze a repository and generate the Codex project guidance it actually needs.
 Keep the output concrete and minimal. Do not create config layers or repo-local
 skills unless they materially help this specific repository.
 
+## Portable Guidance Policy
+
+Use one source of truth for repo guidance:
+
+- `AGENTS.md` is canonical root guidance for all coding agents.
+- `CLAUDE.md` is a symlink to `AGENTS.md`.
+- Do not use root `AGENTS.md` for Claude subagent definitions.
+- Claude subagents, if present, belong in `.claude/agents/`.
+- Update existing guidance in place. Do not overwrite or replace a regular
+  `AGENTS.md` or `CLAUDE.md` without first reading and preserving its content.
+
+Existing-file handling:
+
+- If only `AGENTS.md` exists: update it, then create `CLAUDE.md -> AGENTS.md`.
+- If only `CLAUDE.md` exists: copy/merge its content into new `AGENTS.md`, then
+  replace `CLAUDE.md` with a symlink to `AGENTS.md` only after preserving the
+  original content.
+- If both exist and one is already a symlink to the other: update canonical
+  `AGENTS.md`.
+- If both exist as regular files: read both, merge useful content into
+  `AGENTS.md`, and ask before replacing `CLAUDE.md` with a symlink if there is
+  any conflict or uncertainty.
+
+Repair flow when both root files already exist as regular files:
+
+1. Read `AGENTS.md` and `CLAUDE.md` before editing either file.
+2. Treat `AGENTS.md` as destination and preserve all non-duplicated guidance
+   from both files.
+3. Move Claude-only material out of root guidance:
+   - slash-command workflow notes → `.claude/commands/`
+   - subagent definitions → `.claude/agents/`
+   - Claude permission/settings notes → `.claude/settings.json`
+4. Remove duplicated or product-specific wording from `AGENTS.md` after the
+   reusable guidance is merged.
+5. If the merge is clear and lossless, replace root `CLAUDE.md` with a relative
+   symlink using `ln -sf AGENTS.md CLAUDE.md`.
+6. If the two files conflict on commands, architecture, safety rules, or commit
+   workflow, stop and ask which source should win before replacing anything.
+7. In the final summary, explicitly list what was merged, moved, and symlinked.
+
 ## What to Generate
 
 Possible outputs, in priority order:
 
 1. `AGENTS.md` in the repo root
-2. Nested `AGENTS.md` files only where a subdirectory genuinely needs different rules
-3. `.codex/config.toml` only when the repo needs project-scoped Codex overrides
-4. `.agents/skills/<skill-name>/` only when the repo has a repeatable workflow that deserves a reusable skill
-5. `MEMORY.md` *(optional)* — agent-maintained discoveries file
-6. `BACKLOG.md` *(optional)* — lightweight task tracking when no external tracker is in use
+2. `CLAUDE.md` as a relative symlink to `AGENTS.md`
+3. Nested `AGENTS.md` files only where a subdirectory genuinely needs different rules
+4. `.codex/config.toml` only when the repo needs project-scoped Codex overrides
+5. `.agents/skills/<skill-name>/` only when the repo has a repeatable workflow that deserves a reusable skill
+6. `MEMORY.md` *(optional)* — agent-maintained discoveries file
+7. `BACKLOG.md` *(optional)* — lightweight task tracking when no external tracker is in use
 
 ## Step 1: Discover the Project
 
@@ -73,9 +114,10 @@ Check for:
 - `README.md`
 - `CONTRIBUTING.md`
 - `AGENTS.md`
+- `CLAUDE.md`
 - `.codex/config.toml`
 - `.agents/skills/`
-- Any existing Claude or agent-specific guidance that should be translated rather than replaced
+- Any existing Claude or agent-specific guidance that should be merged rather than replaced
 
 ### Non-Obvious Patterns & Tribal Knowledge
 
@@ -108,7 +150,8 @@ Run `git log --oneline -20` to detect commit conventions and recent areas of cha
 
 ## Step 2: Draft the Repo AGENTS.md
 
-Create or update a root `AGENTS.md` that helps Codex work effectively in this repository.
+Create or update a root `AGENTS.md` that helps Codex and Claude work
+effectively in this repository.
 
 Keep it specific, short, and operational. Write in compressed fragment syntax: drop articles in list items, use `→` for causal chains, no prose in bullets. Put commands and high-risk areas at the top or bottom — LLM attention drops for content buried in the middle of long documents.
 
@@ -125,7 +168,25 @@ Good sections usually include:
 
 Prefer actual commands and paths. Avoid generic advice.
 
-## Step 3: Decide Whether Nested AGENTS.md Files Are Needed
+## Step 3: Link CLAUDE.md to AGENTS.md
+
+After `AGENTS.md` is created or updated, make root `CLAUDE.md` a symlink to it:
+
+```bash
+ln -sf AGENTS.md CLAUDE.md
+```
+
+Use a relative symlink so the repo remains portable.
+
+If `CLAUDE.md` is a regular file, preserve its content first:
+
+- if its content is already represented in `AGENTS.md`, replace it with the
+  symlink
+- if it contains unique guidance, merge that guidance into `AGENTS.md` before
+  replacing it
+- if both files conflict, ask the user before replacing anything
+
+## Step 4: Decide Whether Nested AGENTS.md Files Are Needed
 
 Add nested `AGENTS.md` files only when a subtree has different rules, such as:
 
@@ -135,7 +196,7 @@ Add nested `AGENTS.md` files only when a subtree has different rules, such as:
 
 If the root file is enough, stop there.
 
-## Step 4: Decide Whether .codex/config.toml Is Needed
+## Step 5: Decide Whether .codex/config.toml Is Needed
 
 Create `.codex/config.toml` only when the repo benefits from committed Codex overrides, for example:
 
@@ -148,7 +209,7 @@ Do not create `.codex/config.toml` just to restate defaults.
 
 If you create it, keep it minimal and repo-specific.
 
-## Step 5: Decide Whether Repo-Local Skills Are Needed
+## Step 6: Decide Whether Repo-Local Skills Are Needed
 
 Create `.agents/skills/` only when the repository has a repeatable workflow that would otherwise be rewritten repeatedly, such as:
 
@@ -163,7 +224,7 @@ If you create a skill:
 - add `agents/openai.yaml` metadata when useful
 - prefer references or scripts over bloated inline instructions
 
-## Step 6: Respect Existing Setup
+## Step 7: Respect Existing Setup
 
 When a repo already has Codex setup:
 
@@ -175,16 +236,18 @@ When a repo already has Codex setup:
 When a repo has Claude-specific setup:
 
 - reuse the useful project analysis
-- translate product-specific pieces into Codex equivalents
+- merge reusable guidance into canonical `AGENTS.md`
+- keep Claude-specific commands/settings under `.claude/`
+- make root `CLAUDE.md` a symlink, not a divergent guide
 - do not assume Claude slash commands or settings files map directly to Codex
 
-## Step 7: Update Ignore Rules Only When Needed
+## Step 8: Update Ignore Rules Only When Needed
 
 Only touch `.gitignore` if you create local-only Codex files that should not be committed.
 
 Do not add ignore rules for committed team files such as `AGENTS.md`, `.codex/config.toml`, or repo-local skills.
 
-## Step 8: Optional Project Scaffolding
+## Step 9: Optional Project Scaffolding
 
 Create these only when they add clear value for this specific project. Ask the
 user if unsure — don't generate them by default.
@@ -237,7 +300,7 @@ agent-managed task lists. Use three sections:
 
 Include checkbox updates in the same commit as the change they track.
 
-## Step 9: Present the Result
+## Step 10: Present the Result
 
 After generating the setup:
 
@@ -252,6 +315,7 @@ Do not auto-commit.
 Before finishing, verify:
 
 - `AGENTS.md` reflects the actual repo commands and structure
+- `CLAUDE.md` is a relative symlink to `AGENTS.md`, unless user explicitly declined
 - nested `AGENTS.md` files exist only where needed
 - `.codex/config.toml` contains only repo-specific overrides
 - any repo-local skill has a clear trigger and compact instructions

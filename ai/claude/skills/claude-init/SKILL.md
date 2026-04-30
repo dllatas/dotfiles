@@ -2,29 +2,71 @@
 name: claude-init
 description: >
   Onboard any repository for use with Claude Code by analyzing its structure
-  and generating a tailored .claude/ setup. Use this skill whenever someone
-  asks to "set up Claude" for a project, "onboard a repo", "create a CLAUDE.md",
-  "initialize Claude Code config", or mentions wanting Claude to understand
-  their codebase. Also trigger when someone says "claude-init" or asks how to
-  make Claude work well with their project.
+  and generating portable AGENTS.md-first guidance plus a tailored .claude/
+  setup. Use this skill whenever someone asks to "set up Claude" for a project,
+  "onboard a repo", "create a CLAUDE.md", "initialize Claude Code config", or
+  mentions wanting Claude to understand their codebase. Also trigger when
+  someone says "claude-init" or asks how to make Claude work well with their
+  project.
 disable-model-invocation: true
 argument-hint: "[path-to-repo]"
 ---
 
 # claude-init — Repository Onboarding for Claude Code
 
-Analyze a repository and generate a complete `.claude/` setup tailored to
-the project's stack, conventions, and workflows.
+Analyze a repository and generate portable agent guidance plus a `.claude/`
+setup tailored to the project's stack, conventions, and workflows.
+
+## Portable Guidance Policy
+
+Use one source of truth for repo guidance:
+
+- `AGENTS.md` is canonical root guidance for all coding agents.
+- `CLAUDE.md` is a symlink to `AGENTS.md`.
+- Never write Claude subagent definitions into root `AGENTS.md`.
+- Claude subagents, when useful, live as separate files in `.claude/agents/`.
+- Update existing guidance in place. Do not overwrite or replace a regular
+  `AGENTS.md` or `CLAUDE.md` without first reading and preserving its content.
+
+Existing-file handling:
+
+- If only `AGENTS.md` exists: update it, then create `CLAUDE.md -> AGENTS.md`.
+- If only `CLAUDE.md` exists: copy/merge its content into new `AGENTS.md`, then
+  replace `CLAUDE.md` with a symlink to `AGENTS.md` only after preserving the
+  original content.
+- If both exist and one is already a symlink to the other: update canonical
+  `AGENTS.md`.
+- If both exist as regular files: read both, merge useful content into
+  `AGENTS.md`, and ask before replacing `CLAUDE.md` with a symlink if there is
+  any conflict or uncertainty.
+
+Repair flow when both root files already exist as regular files:
+
+1. Read `AGENTS.md` and `CLAUDE.md` before editing either file.
+2. Treat `AGENTS.md` as destination and preserve all non-duplicated guidance
+   from both files.
+3. Move Claude-only material out of root guidance:
+   - slash-command workflow notes → `.claude/commands/`
+   - subagent definitions → `.claude/agents/`
+   - Claude permission/settings notes → `.claude/settings.json`
+4. Remove duplicated or product-specific wording from `AGENTS.md` after the
+   reusable guidance is merged.
+5. If the merge is clear and lossless, replace root `CLAUDE.md` with a relative
+   symlink using `ln -sf AGENTS.md CLAUDE.md`.
+6. If the two files conflict on commands, architecture, safety rules, or commit
+   workflow, stop and ask which source should win before replacing anything.
+7. In the final summary, explicitly list what was merged, moved, and symlinked.
 
 ## What to Generate
 
-1. **CLAUDE.md** — The main project guide
-2. **AGENTS.md** — Sub-agent role definitions
-3. **.claude/commands/** — Slash commands for common workflows
-4. **.claude/settings.json** — Shared team permissions
-5. **.gitignore entries** — Keep local-only state out of VCS
-6. **MEMORY.md** *(optional)* — Agent-maintained discoveries file
-7. **BACKLOG.md** *(optional)* — Lightweight task tracking
+1. **AGENTS.md** — Canonical portable project guide
+2. **CLAUDE.md** — Symlink to `AGENTS.md`
+3. **.claude/agents/** *(optional)* — Claude subagent definitions
+4. **.claude/commands/** — Slash commands for common workflows
+5. **.claude/settings.json** — Shared team permissions
+6. **.gitignore entries** — Keep local-only state out of VCS
+7. **MEMORY.md** *(optional)* — Agent-maintained discoveries file
+8. **BACKLOG.md** *(optional)* — Lightweight task tracking
 
 ## Step 1: Discover the Project
 
@@ -77,7 +119,7 @@ superseded:
 
 - `README.md` — extract purpose, setup instructions
 - `CONTRIBUTING.md` — extract coding standards
-- `CLAUDE.md` / `AGENTS.md` — if they exist, we're augmenting, not replacing
+- `AGENTS.md` / `CLAUDE.md` — determine canonical guidance and symlink state
 - `.claude/` — check what already exists
 
 ### Non-Obvious Patterns & Tribal Knowledge
@@ -93,7 +135,7 @@ surfaced anywhere obvious. For each module or major subsystem, ask:
 Focus especially on questions 2 and 4 — these are where undocumented pitfalls
 live (e.g. hidden field naming conventions between pipeline stages, implicit
 ordering requirements, env vars that silently change behavior). Surface these
-in the CLAUDE.md "Non-Obvious Patterns" section rather than leaving them in
+in the AGENTS.md "Non-Obvious Patterns" section rather than leaving them in
 comments no one reads.
 
 ### Branch Freshness
@@ -115,9 +157,10 @@ Run `git log --oneline -20` to detect:
 - Active contributors
 - Recent areas of change
 
-## Step 2: Draft CLAUDE.md
+## Step 2: Draft AGENTS.md
 
-Structure the file following this template. Keep it under 200 lines.
+Structure the canonical guidance file following this template. Keep it under
+200 lines.
 Replace or omit sections that don't apply.
 
 ```markdown
@@ -184,9 +227,31 @@ Replace or omit sections that don't apply.
 - **Lost in the middle:** LLM attention drops sharply for content in the middle of long documents.
   Put critical constraints (commands, high-risk areas) at the top or bottom — never only in the middle.
 
-## Step 3: Draft AGENTS.md
+## Step 3: Link CLAUDE.md to AGENTS.md
 
-Define 2-4 sub-agent roles relevant to the project. Common patterns:
+After `AGENTS.md` is created or updated, make root `CLAUDE.md` a symlink to it:
+
+```bash
+ln -sf AGENTS.md CLAUDE.md
+```
+
+Do not use an absolute symlink. Keep the repo portable when cloned elsewhere.
+
+If `CLAUDE.md` is a regular file, preserve its content first:
+
+- if its content is already represented in `AGENTS.md`, replace it with the
+  symlink
+- if it contains unique guidance, merge that guidance into `AGENTS.md` before
+  replacing it
+- if both files conflict, ask the user before replacing anything
+
+## Step 4: Draft Claude Subagents Only When Useful
+
+If the project benefits from Claude subagents, create 2-4 files under
+`.claude/agents/`. Do not create or overwrite root `AGENTS.md` for subagent
+roles.
+
+Common patterns:
 
 - **Reviewer Agent** — What to check during code review (project-specific
   invariants, test coverage expectations, style rules)
@@ -195,10 +260,10 @@ Define 2-4 sub-agent roles relevant to the project. Common patterns:
 - **Deployment Agent** — Build/push/deploy steps with image naming, registry,
   and GitOps target paths
 
-Only include roles that make sense for the project. A simple library
-might only need Reviewer. A full-stack app with CI/CD might need all three.
+Only include roles that make sense for the project. A simple library might not
+need any subagents.
 
-## Step 4: Scaffold Slash Commands
+## Step 5: Scaffold Slash Commands
 
 Create `.claude/commands/` with markdown files for common workflows.
 Each command should be a focused, opinionated sequence of steps.
@@ -232,7 +297,7 @@ Arguments: $ARGUMENTS (describe expected args or "none")
 3. [Report results]
 ```
 
-## Step 5: Generate settings.json
+## Step 6: Generate settings.json
 
 Create `.claude/settings.json` with pre-approved safe operations:
 
@@ -260,7 +325,7 @@ Note: create `settings.json` (team-shared, committed) not
 `settings.local.json` (personal, gitignored). If there's already a
 `settings.local.json`, leave it alone.
 
-## Step 6: Update .gitignore
+## Step 7: Update .gitignore
 
 Append these entries if not already present:
 
@@ -270,7 +335,7 @@ Append these entries if not already present:
 .claude/worktrees/
 ```
 
-## Step 7: Optional Project Scaffolding
+## Step 8: Optional Project Scaffolding
 
 Create these only when they add clear value for this specific project. Ask the
 user if unsure — don't generate them by default.
@@ -328,7 +393,7 @@ Jira) or when the user wants agent-managed task lists. Use three sections:
 Agent workflow: check off items as each unit of work completes, and include
 the checkbox update in the same commit as the change.
 
-## Step 8: Present to User
+## Step 9: Present to User
 
 After generating everything, present a summary:
 
@@ -338,29 +403,31 @@ After generating everything, present a summary:
 3. Ask if they want to adjust anything before committing
 
 Do NOT auto-commit. Let the user review and decide when to commit.
-The user might want to tweak the CLAUDE.md or adjust commands before
+The user might want to tweak `AGENTS.md` or adjust commands before
 locking them in.
 
 ## Handling Existing Setups
 
-If the repo already has a `.claude/` folder or `CLAUDE.md`:
+If the repo already has a `.claude/` folder, `AGENTS.md`, or `CLAUDE.md`:
 
 - **Read what exists first** — don't overwrite blindly
 - **Identify gaps** — what's missing compared to the full setup?
-- **Propose additions** — "I see you have CLAUDE.md but no commands. Want me to add /build and /test?"
+- **Propose additions** — "I see you have AGENTS.md but no commands. Want me to add /build and /test?"
 - **Merge, don't replace** — add new sections to existing files rather than rewriting from scratch
+- **Keep one guidance source** — canonicalize into `AGENTS.md`; make `CLAUDE.md` a symlink
 
 ## Quality Checks
 
 Before presenting to the user, verify:
 
-- [ ] CLAUDE.md is under 200 lines
+- [ ] AGENTS.md is under 200 lines
+- [ ] CLAUDE.md is a relative symlink to AGENTS.md, unless user explicitly declined
 - [ ] All commands reference actual scripts/tools found in the project
 - [ ] No placeholder text like "[TODO]" or "[fill in]" remains
 - [ ] .gitignore entries don't duplicate existing ones
 - [ ] Settings permissions match the project's actual toolchain
 
-**Critic pass:** re-read the generated CLAUDE.md against the actual code and
+**Critic pass:** re-read the generated AGENTS.md against the actual code and
 confirm each claim. A doc that names a file, flag, or command that does not
 exist is worse than no doc. Verify all referenced paths exist and all commands
 run from the documented location.
