@@ -1,0 +1,4 @@
+interface:
+  display_name: "Deploy Netcup App"
+  short_description: "Deploy Harbor image via Netcup GitOps."
+  default_prompt: "Use $deploy-netcup-app to deploy a new image version to the Netcup k3s cluster, defaulting ENV to staging unless I explicitly set ENV=production."
