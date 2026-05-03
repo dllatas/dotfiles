@@ -25,7 +25,7 @@ Deploy by changing the image reference that ArgoCD already tracks in
 - Resolve `ENV` first. Empty means `staging`; production requires explicit `ENV=production`.
 - Confirm the app image was already built by Tekton from either a PR push or a merge to `master`/`main`.
 - Confirm the exact Harbor image repository and tag. Never use `latest`, a partial image name, or an omitted registry.
-- Work in the `netcup-apps` repository, usually `/Users/ds/code/netcup-apps` when present.
+- Work in the local `netcup-apps` checkout. Prefer `$HOME/code/netcup-apps` when present; otherwise locate a checkout by repo name or Git remote before editing.
 
 ## Workflow
 
