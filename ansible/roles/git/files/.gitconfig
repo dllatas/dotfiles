@@ -38,3 +38,9 @@
 	conflictstyle = zdiff3
 [safe]
 	directory = /Users/ds/code/helm-charts-pac-migration
+[credential "https://github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/opt/homebrew/bin/gh auth git-credential
