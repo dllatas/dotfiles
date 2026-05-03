@@ -54,10 +54,10 @@ The `ai-agents` role installs these global files:
 - `ai/claude/CLAUDE.md` as `~/.claude/CLAUDE.md`
 - `ai/claude/RTK.md` as `~/.claude/RTK.md`
 - `ai/claude/settings.json` as `~/.claude/settings.json`
-- `ai/claude/skills/` as `~/.claude/skills/` (claude-init, write-commits, create-pr, update-docs)
+- `ai/claude/skills/` as `~/.claude/skills/` (claude-init, write-commits, create-pr, update-docs, deploy-netcup-app)
 - `ai/codex/AGENTS.md` as `~/.codex/AGENTS.md`
 - `ai/codex/RTK.md` as `~/.codex/RTK.md`
-- `ai/codex/skills/` as `~/.agents/skills/` (codex-init, write-commits, create-pr, update-docs)
+- `ai/codex/skills/` as `~/.agents/skills/` (codex-init, write-commits, create-pr, update-docs, deploy-netcup-app)
 
 For Codex user config, the role seeds `ai/codex/config.toml` into `~/.codex/config.toml` when that file does not already exist. If already present, the role reconciles the tracked stable defaults while preserving local `[projects]` trust settings.
 

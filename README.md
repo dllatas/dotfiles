@@ -64,7 +64,7 @@ ls -l ~/.claude/settings.json
 
 Both symlink targets should point back to this repo's Claude files.
 
-This repo also tracks the global Claude onboarding skill in [`ai/claude/skills/claude-init/`](/dotfiles/ai/claude/skills/claude-init/SKILL.md), the global Claude commit-writing skill in [`ai/claude/skills/write-commits/`](/dotfiles/ai/claude/skills/write-commits/SKILL.md), the global Claude PR-creation skill in [`ai/claude/skills/create-pr/`](/dotfiles/ai/claude/skills/create-pr/SKILL.md), and the global Claude doc-maintenance skill in [`ai/claude/skills/update-docs/`](/dotfiles/ai/claude/skills/update-docs/SKILL.md). The playbook installs them as `~/.claude/skills/claude-init`, `~/.claude/skills/write-commits`, `~/.claude/skills/create-pr`, and `~/.claude/skills/update-docs`.
+This repo also tracks the global Claude onboarding skill in [`ai/claude/skills/claude-init/`](/dotfiles/ai/claude/skills/claude-init/SKILL.md), the global Claude commit-writing skill in [`ai/claude/skills/write-commits/`](/dotfiles/ai/claude/skills/write-commits/SKILL.md), the global Claude PR-creation skill in [`ai/claude/skills/create-pr/`](/dotfiles/ai/claude/skills/create-pr/SKILL.md), the global Claude doc-maintenance skill in [`ai/claude/skills/update-docs/`](/dotfiles/ai/claude/skills/update-docs/SKILL.md), and the global Claude Netcup deploy skill in [`ai/claude/skills/deploy-netcup-app/`](/dotfiles/ai/claude/skills/deploy-netcup-app/SKILL.md). The playbook installs them as `~/.claude/skills/claude-init`, `~/.claude/skills/write-commits`, `~/.claude/skills/create-pr`, `~/.claude/skills/update-docs`, and `~/.claude/skills/deploy-netcup-app`.
 
 ### OpenAI Codex
 
@@ -81,6 +81,7 @@ This repo tracks both:
 - [`ai/codex/skills/write-commits/`](/dotfiles/ai/codex/skills/write-commits/SKILL.md): a global Codex skill installed at `~/.agents/skills/write-commits`
 - [`ai/codex/skills/create-pr/`](/dotfiles/ai/codex/skills/create-pr/SKILL.md): a global Codex skill installed at `~/.agents/skills/create-pr`
 - [`ai/codex/skills/update-docs/`](/dotfiles/ai/codex/skills/update-docs/SKILL.md): a global Codex skill installed at `~/.agents/skills/update-docs`
+- [`ai/codex/skills/deploy-netcup-app/`](/dotfiles/ai/codex/skills/deploy-netcup-app/SKILL.md): a global Codex skill installed at `~/.agents/skills/deploy-netcup-app`
 
 The Ansible playbook installs the global instructions file automatically. Manual fallback:
 
@@ -105,6 +106,7 @@ The playbook also installs the global `codex-init` skill by symlinking [`ai/code
 It also installs the global `write-commits` skill by symlinking [`ai/codex/skills/write-commits/`](/dotfiles/ai/codex/skills/write-commits/SKILL.md) into `~/.agents/skills/write-commits`.
 It also installs the global `create-pr` skill by symlinking [`ai/codex/skills/create-pr/`](/dotfiles/ai/codex/skills/create-pr/SKILL.md) into `~/.agents/skills/create-pr`.
 It also installs the global `update-docs` skill by symlinking [`ai/codex/skills/update-docs/`](/dotfiles/ai/codex/skills/update-docs/SKILL.md) into `~/.agents/skills/update-docs`.
+It also installs the global `deploy-netcup-app` skill by symlinking [`ai/codex/skills/deploy-netcup-app/`](/dotfiles/ai/codex/skills/deploy-netcup-app/SKILL.md) into `~/.agents/skills/deploy-netcup-app`.
 
 If you manage it manually, prefer copying or merging the tracked defaults instead of symlinking blindly. Codex user config often also contains local trust settings and notice state that are specific to one machine.
 
@@ -131,6 +133,7 @@ The Claude and Codex files serve different products and layers, but they should 
 - `ai/claude/skills/write-commits/` for the global Claude commit-writing skill
 - `ai/claude/skills/create-pr/` for the global Claude PR-creation skill
 - `ai/claude/skills/update-docs/` for the global Claude doc-maintenance skill
+- `ai/claude/skills/deploy-netcup-app/` for the global Claude Netcup deploy skill
 - `ai/codex/AGENTS.md` for Codex global instructions
 - `ai/codex/RTK.md` for RTK usage guide (imported by AGENTS.md)
 - `ai/codex/config.toml` for Codex stable user defaults
@@ -138,6 +141,7 @@ The Claude and Codex files serve different products and layers, but they should 
 - `ai/codex/skills/write-commits/` for the global Codex commit-writing skill
 - `ai/codex/skills/create-pr/` for the global Codex PR-creation skill
 - `ai/codex/skills/update-docs/` for the global Codex doc-maintenance skill
+- `ai/codex/skills/deploy-netcup-app/` for the global Codex Netcup deploy skill
 
 Both global instruction files now tell the agents to create and work from a git worktree in git repositories instead of editing directly in the current checkout, unless you explicitly override that for a task.
 

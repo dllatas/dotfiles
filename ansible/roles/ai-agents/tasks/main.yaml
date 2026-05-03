@@ -72,6 +72,13 @@
     state: link
     force: true
 
+- name: Symlink global deploy-netcup-app Claude skill
+  file:
+    src: "{{ dotfiles_path }}/ai/claude/skills/deploy-netcup-app"
+    dest: "{{ claude_skills_path }}/deploy-netcup-app"
+    state: link
+    force: true
+
 - name: Symlink global Codex instructions
   file:
     src: "{{ dotfiles_path }}/ai/codex/AGENTS.md"
@@ -111,6 +118,13 @@
   file:
     src: "{{ dotfiles_path }}/ai/codex/skills/update-docs"
     dest: "{{ codex_skills_path }}/update-docs"
+    state: link
+    force: true
+
+- name: Symlink global deploy-netcup-app skill
+  file:
+    src: "{{ dotfiles_path }}/ai/codex/skills/deploy-netcup-app"
+    dest: "{{ codex_skills_path }}/deploy-netcup-app"
     state: link
     force: true
 
