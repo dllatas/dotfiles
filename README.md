@@ -67,7 +67,7 @@ Both symlink targets should point back to this repo's Claude files.
 The tracked Claude settings are tuned to reduce routine permission prompts
 without using full bypass mode. They set `permissions.defaultMode` to
 `acceptEdits`, enable Claude's Bash sandbox with automatic approval for
-sandboxed commands, allow common read-only, test/build, and Tekton CLI commands, and keep
+sandboxed commands, allow common read-only, test/build, `ollama list`, `kubectl get pods`, and Tekton CLI commands, and keep
 destructive or environment-changing commands such as `git push`, `git reset`,
 package installs, Docker, Kubernetes, Terraform, and Homebrew behind prompts.
 They also deny common secret paths such as `.env`, `secrets/`, `~/.aws`, and
@@ -182,7 +182,7 @@ brew install ansible
 
 ### Full workstation bootstrap
 
-Run every role (brew, git, nodejs, kitty, lazyvim, ai-agents):
+Run every role (brew, git, nodejs, rust, kitty, lazyvim, ai-agents):
 
 ```bash
 ansible-playbook -i ansible/production.ini ansible/main.yaml
@@ -210,6 +210,9 @@ ansible-playbook -i ansible/production.ini ansible/main.yaml --tags lazyvim
 
 # Only Node.js / nvm
 ansible-playbook -i ansible/production.ini ansible/main.yaml --tags nodejs
+
+# Only Rust / rustup
+ansible-playbook -i ansible/production.ini ansible/main.yaml --tags rust
 ```
 
 You can combine tags too:
@@ -234,6 +237,7 @@ ansible-playbook -i ansible/production.ini ansible/main.yaml --check
 | `brew` | Homebrew formulae and casks |
 | `git` | Global `~/.gitconfig` |
 | `nodejs` | nvm + Node.js LTS |
+| `rust` | rustup-init + stable Rust toolchain |
 | `kitty` | Kitty terminal, zsh, oh-my-zsh, Powerlevel10k, Atkinson Hyperlegible Next, Meslo Nerd Font glyph fallback |
 | `lazyvim` | LazyVim starter + Neovim Lua configs |
 | `ai-agents` | Claude Code and Codex global configs, settings, and skills |

@@ -19,6 +19,8 @@
       tags: [git]
     - role: nodejs
       tags: [nodejs]
+    - role: rust
+      tags: [rust]
     - role: kitty
       tags: [kitty]
     - role: lazyvim

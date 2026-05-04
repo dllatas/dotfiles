@@ -3,7 +3,7 @@
 ## Purpose
 
 Ansible playbook that bootstraps a macOS workstation: Homebrew packages,
-shell/terminal config, Neovim, Git, Node.js, and AI agent configs.
+shell/terminal config, Neovim, Git, Node.js, Rust, and AI agent configs.
 Targets `localhost` only — no remote hosts.
 
 ## Stack
@@ -21,6 +21,7 @@ Targets `localhost` only — no remote hosts.
   - `brew/` — Homebrew formulae and casks
   - `git/` — global `~/.gitconfig` symlink
   - `nodejs/` — nvm + Node.js LTS
+  - `rust/` — rustup-init + stable Rust toolchain
   - `kitty/` — Kitty terminal, zsh, oh-my-zsh, Powerlevel10k
   - `lazyvim/` — LazyVim starter + Neovim Lua configs
   - `ai-agents/` — Claude Code and Codex global configs, settings, skills
