@@ -1,0 +1,13 @@
+---
+- name: Install rustup-init
+  homebrew:
+    name: rustup-init
+    state: present
+
+- name: Install stable Rust toolchain
+  command: rustup-init -y --default-toolchain stable --no-modify-path
+  args:
+    creates: "{{ ansible_facts['env']['HOME'] }}/.cargo/bin/rustc"
+  environment:
+    CARGO_HOME: "{{ ansible_facts['env']['HOME'] }}/.cargo"
+    RUSTUP_HOME: "{{ ansible_facts['env']['HOME'] }}/.rustup"

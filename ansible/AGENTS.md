@@ -17,5 +17,6 @@ Key entry points for understanding this project:
 
 - `devenv.yaml` — the role list and pre_tasks that resolve `dotfiles_path`
 - `roles/brew/tasks/main.yaml` — the full list of installed packages
+- `roles/rust/tasks/main.yaml` — Rust toolchain install via rustup-init
 - `roles/ai-agents/tasks/main.yaml` — how Claude/Codex configs are deployed
 - `production.ini` — confirms this is local-only (no remote hosts)

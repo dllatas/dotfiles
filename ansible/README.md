@@ -17,6 +17,7 @@ The `devenv` playbook applies these roles:
 | `brew` | `brew` | Homebrew formulae and casks |
 | `git` | `git` | Global `~/.gitconfig` |
 | `nodejs` | `nodejs` | nvm + Node.js LTS |
+| `rust` | `rust` | rustup-init + stable Rust toolchain |
 | `kitty` | `kitty` | Kitty terminal, zsh, oh-my-zsh, Powerlevel10k, Atkinson Hyperlegible Next, Meslo Nerd Font glyph fallback |
 | `lazyvim` | `lazyvim` | LazyVim starter + Neovim Lua configs |
 | `ai-agents` | `ai-agents` | Claude Code and Codex global configs, settings, and skills |
@@ -32,6 +33,9 @@ ansible-playbook -i ansible/production.ini ansible/main.yaml
 # Single role
 ansible-playbook -i ansible/production.ini ansible/main.yaml --tags ai-agents
 
+# Rust toolchain only
+ansible-playbook -i ansible/production.ini ansible/main.yaml --tags rust
+
 # Dry run
 ansible-playbook -i ansible/production.ini ansible/main.yaml --check
 ```
@@ -44,6 +48,7 @@ The playbook detects the current user automatically via Ansible facts (`ansible_
 - `brew` installs development tools, CLI utilities, container/infra tooling, and GUI apps via Homebrew.
 - `git` symlinks a global `~/.gitconfig` from the repo.
 - `nodejs` downloads and runs the `nvm` install script, then installs the latest LTS release.
+- `rust` installs `rustup-init` with Homebrew, then installs the stable Rust toolchain under `~/.cargo` and `~/.rustup`.
 - `kitty` downloads external installers and fonts, changes the login shell to `zsh`, and symlinks kitty plus shell config into your home directory.
 - `lazyvim` backs up existing Neovim state to `*.bak`, clones the LazyVim starter if needed, and symlinks the repo's Lua files into `~/.config/nvim`.
 
@@ -60,5 +65,7 @@ The `ai-agents` role installs these global files:
 - `ai/codex/skills/` as `~/.agents/skills/` (codex-init, write-commits, create-pr, update-docs, deploy-netcup-app)
 
 For Codex user config, the role seeds `ai/codex/config.toml` into `~/.codex/config.toml` when that file does not already exist. If already present, the role reconciles the tracked stable defaults while preserving local `[projects]` trust settings.
+
+The tracked Claude settings are tuned to reduce routine permission prompts while keeping high-risk commands behind approval. They set `permissions.defaultMode` to `acceptEdits`, enable Claude's Bash sandbox with automatic approval for sandboxed commands, allow common read-only and test/build commands (including `ollama list` and `kubectl get pods`), and keep destructive or environment-changing commands such as `git push`, `git reset`, package installs, Docker, broader Kubernetes commands, Terraform, and Homebrew behind prompts.
 
 See the [main README](../README.md) for full Claude and Codex setup notes.
