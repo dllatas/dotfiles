@@ -73,7 +73,16 @@ package installs, Docker, Kubernetes, Terraform, and Homebrew behind prompts.
 They also deny common secret paths such as `.env`, `secrets/`, `~/.aws`, and
 `~/.ssh`.
 
-This repo also tracks the global Claude onboarding skill in [`ai/claude/skills/claude-init/`](/dotfiles/ai/claude/skills/claude-init/SKILL.md), the global Claude commit-writing skill in [`ai/claude/skills/write-commits/`](/dotfiles/ai/claude/skills/write-commits/SKILL.md), the global Claude PR-creation skill in [`ai/claude/skills/create-pr/`](/dotfiles/ai/claude/skills/create-pr/SKILL.md), the global Claude doc-maintenance skill in [`ai/claude/skills/update-docs/`](/dotfiles/ai/claude/skills/update-docs/SKILL.md), and the global Claude Netcup deploy skill in [`ai/claude/skills/deploy-netcup-app/`](/dotfiles/ai/claude/skills/deploy-netcup-app/SKILL.md). The playbook installs them as `~/.claude/skills/claude-init`, `~/.claude/skills/write-commits`, `~/.claude/skills/create-pr`, `~/.claude/skills/update-docs`, and `~/.claude/skills/deploy-netcup-app`.
+This repo also tracks these global Claude skills, installed by the playbook
+under `~/.claude/skills/`:
+
+- [`ai/claude/skills/claude-init/`](/dotfiles/ai/claude/skills/claude-init/SKILL.md): repo onboarding
+- [`ai/claude/skills/write-commits/`](/dotfiles/ai/claude/skills/write-commits/SKILL.md): commit writing
+- [`ai/claude/skills/create-pr/`](/dotfiles/ai/claude/skills/create-pr/SKILL.md): PR creation
+- [`ai/claude/skills/update-docs/`](/dotfiles/ai/claude/skills/update-docs/SKILL.md): doc maintenance
+- [`ai/claude/skills/deploy-netcup-app/`](/dotfiles/ai/claude/skills/deploy-netcup-app/SKILL.md): Netcup app deploys
+- [`ai/claude/skills/create-argocd-app/`](/dotfiles/ai/claude/skills/create-argocd-app/SKILL.md): Netcup ArgoCD app registration
+- [`ai/claude/skills/create-ci-pipeline/`](/dotfiles/ai/claude/skills/create-ci-pipeline/SKILL.md): Tekton PaC image pipelines
 
 The `claude-init` skill uses portable project guidance: repo-root `AGENTS.md`
 is the canonical guide, and repo-root `CLAUDE.md` should be a relative symlink
@@ -96,6 +105,8 @@ This repo tracks both:
 - [`ai/codex/skills/create-pr/`](/dotfiles/ai/codex/skills/create-pr/SKILL.md): a global Codex skill installed at `~/.agents/skills/create-pr`
 - [`ai/codex/skills/update-docs/`](/dotfiles/ai/codex/skills/update-docs/SKILL.md): a global Codex skill installed at `~/.agents/skills/update-docs`
 - [`ai/codex/skills/deploy-netcup-app/`](/dotfiles/ai/codex/skills/deploy-netcup-app/SKILL.md): a global Codex skill installed at `~/.agents/skills/deploy-netcup-app`
+- [`ai/codex/skills/create-argocd-app/`](/dotfiles/ai/codex/skills/create-argocd-app/SKILL.md): a global Codex skill installed at `~/.agents/skills/create-argocd-app`
+- [`ai/codex/skills/create-ci-pipeline/`](/dotfiles/ai/codex/skills/create-ci-pipeline/SKILL.md): a global Codex skill installed at `~/.agents/skills/create-ci-pipeline`
 
 The Ansible playbook installs the global instructions file automatically. Manual fallback:
 
@@ -121,6 +132,8 @@ It also installs the global `write-commits` skill by symlinking [`ai/codex/skill
 It also installs the global `create-pr` skill by symlinking [`ai/codex/skills/create-pr/`](/dotfiles/ai/codex/skills/create-pr/SKILL.md) into `~/.agents/skills/create-pr`.
 It also installs the global `update-docs` skill by symlinking [`ai/codex/skills/update-docs/`](/dotfiles/ai/codex/skills/update-docs/SKILL.md) into `~/.agents/skills/update-docs`.
 It also installs the global `deploy-netcup-app` skill by symlinking [`ai/codex/skills/deploy-netcup-app/`](/dotfiles/ai/codex/skills/deploy-netcup-app/SKILL.md) into `~/.agents/skills/deploy-netcup-app`.
+It also installs the global `create-argocd-app` skill by symlinking [`ai/codex/skills/create-argocd-app/`](/dotfiles/ai/codex/skills/create-argocd-app/SKILL.md) into `~/.agents/skills/create-argocd-app`.
+It also installs the global `create-ci-pipeline` skill by symlinking [`ai/codex/skills/create-ci-pipeline/`](/dotfiles/ai/codex/skills/create-ci-pipeline/SKILL.md) into `~/.agents/skills/create-ci-pipeline`.
 
 The `codex-init` skill follows the same portable guidance rule as
 `claude-init`: keep repo-root `AGENTS.md` canonical and make repo-root
@@ -152,6 +165,8 @@ The Claude and Codex files serve different products and layers, but they should 
 - `ai/claude/skills/create-pr/` for the global Claude PR-creation skill
 - `ai/claude/skills/update-docs/` for the global Claude doc-maintenance skill
 - `ai/claude/skills/deploy-netcup-app/` for the global Claude Netcup deploy skill
+- `ai/claude/skills/create-argocd-app/` for the global Claude Netcup ArgoCD app-registration skill
+- `ai/claude/skills/create-ci-pipeline/` for the global Claude Tekton PaC image-pipeline skill
 - `ai/codex/AGENTS.md` for Codex global instructions
 - `ai/codex/RTK.md` for RTK usage guide (imported by AGENTS.md)
 - `ai/codex/config.toml` for Codex stable user defaults
@@ -160,6 +175,8 @@ The Claude and Codex files serve different products and layers, but they should 
 - `ai/codex/skills/create-pr/` for the global Codex PR-creation skill
 - `ai/codex/skills/update-docs/` for the global Codex doc-maintenance skill
 - `ai/codex/skills/deploy-netcup-app/` for the global Codex Netcup deploy skill
+- `ai/codex/skills/create-argocd-app/` for the global Codex Netcup ArgoCD app-registration skill
+- `ai/codex/skills/create-ci-pipeline/` for the global Codex Tekton PaC image-pipeline skill
 
 Both global instruction files now tell the agents to create and work from a git worktree in git repositories instead of editing directly in the current checkout, unless you explicitly override that for a task.
 
