@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create ArgoCD App"
+  short_description: "Register Netcup apps in GitOps"
+  default_prompt: "Use $create-argocd-app to register a new Netcup GitOps application and create its deployment chart branch."

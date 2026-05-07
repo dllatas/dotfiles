@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create CI Pipeline"
+  short_description: "Add Tekton PaC Harbor image builds"
+  default_prompt: "Use $create-ci-pipeline to add Tekton Pipelines-as-Code files that build and push this app image to Harbor."

@@ -67,7 +67,8 @@ Only store production mapping after an explicit production deploy request or exp
 ## netcup-apps Branch Pattern
 
 - `main`/`master` contains bootstrap ArgoCD app definitions in `bootstrap/argocd-apps/*.yaml`.
-- Environment applications commonly use `source.repoURL: git@github.com:dllatas/netcup-apps.git`, `source.targetRevision: codex/<app-or-env>`, and `source.path: chart` or `manifests*`.
+- Environment applications commonly use `source.repoURL: git@github.com:dllatas/netcup-apps.git`, a long-lived `source.targetRevision` branch, and `source.path: chart` or `manifests*`.
+- Do not assume any branch prefix for `source.targetRevision`; use the branch name recorded in the ArgoCD Application exactly.
 - The actual deploy edit happens on the `source.targetRevision` branch, not on `main`, unless the app definition on `main` says otherwise.
 - `netcup-apps` `main` is the source of truth for which branch/path ArgoCD currently tracks. Repo-local memory can skip repeated discovery only when it is specific and was previously verified against `main`.
 

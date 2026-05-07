@@ -79,6 +79,20 @@
     state: link
     force: true
 
+- name: Symlink global create-argocd-app Claude skill
+  file:
+    src: "{{ dotfiles_path }}/ai/claude/skills/create-argocd-app"
+    dest: "{{ claude_skills_path }}/create-argocd-app"
+    state: link
+    force: true
+
+- name: Symlink global create-ci-pipeline Claude skill
+  file:
+    src: "{{ dotfiles_path }}/ai/claude/skills/create-ci-pipeline"
+    dest: "{{ claude_skills_path }}/create-ci-pipeline"
+    state: link
+    force: true
+
 - name: Symlink global Codex instructions
   file:
     src: "{{ dotfiles_path }}/ai/codex/AGENTS.md"
@@ -125,6 +139,20 @@
   file:
     src: "{{ dotfiles_path }}/ai/codex/skills/deploy-netcup-app"
     dest: "{{ codex_skills_path }}/deploy-netcup-app"
+    state: link
+    force: true
+
+- name: Symlink global create-argocd-app skill
+  file:
+    src: "{{ dotfiles_path }}/ai/codex/skills/create-argocd-app"
+    dest: "{{ codex_skills_path }}/create-argocd-app"
+    state: link
+    force: true
+
+- name: Symlink global create-ci-pipeline skill
+  file:
+    src: "{{ dotfiles_path }}/ai/codex/skills/create-ci-pipeline"
+    dest: "{{ codex_skills_path }}/create-ci-pipeline"
     state: link
     force: true
 
