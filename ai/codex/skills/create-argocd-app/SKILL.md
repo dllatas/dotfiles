@@ -98,11 +98,24 @@ dependencies:
     repository: oci://harbor.harokilabs.com/helm-charts
 ```
 
-`chart/Chart.lock`:
+`chart/charts/` — **required, must be committed as unpacked directories**:
 
-- Copy the shared digest from `daniel-production` when these dependency versions match:
-  `sha256:e3aad603d30480383cd574cb35297ee41b1641d8cdcf53122868140be44eab03`.
-- Prefer validating with `helm dependency build chart`; if the digest changes, inspect why before committing.
+ArgoCD cannot fetch OCI dependencies from Harbor at sync time. Subcharts must
+be vendored as unpacked directories, not `.tgz` archives — Helm fails dependency
+resolution with tarballs alone in this setup.
+
+Copy the unpacked subchart directories from an existing app on another branch:
+
+```bash
+git checkout origin/codex/daniel-production -- chart/charts/
+```
+
+This gives `chart/charts/application/`, `chart/charts/external-secrets/`,
+`chart/charts/namespace/`, `chart/charts/service-account/` — each containing
+at minimum a `Chart.yaml`. Commit all of them.
+
+Do not commit only `.tgz` files — they will not work. Do not rely on ArgoCD
+or Helm to fetch dependencies at sync time.
 
 `chart/values.yaml` key requirements:
 
@@ -119,8 +132,8 @@ dependencies:
 1. Resolve `APP_NAME`, `DEPLOY_BRANCH`, `CONTAINER_PORT`, and route values.
 2. In `netcup-apps`, fetch and verify latest `origin/main`.
 3. Create or update `DEPLOY_BRANCH` from a sensible base. If `origin/<DEPLOY_BRANCH>` exists, use it. Otherwise create it from the current template branch or `origin/main` according to repo convention.
-4. Add `chart/Chart.yaml`, `chart/Chart.lock`, and `chart/values.yaml` on `DEPLOY_BRANCH`.
-5. Validate the deployment branch with `helm dependency build chart` and `helm template <APP_NAME> chart`.
+4. Add `chart/Chart.yaml`, `chart/charts/` (vendored subchart directories), and `chart/values.yaml` on `DEPLOY_BRANCH`.
+5. Validate the deployment branch with `helm template <APP_NAME> chart`.
 6. Commit and push `DEPLOY_BRANCH` directly. Do not force-push unless explicitly approved.
 7. Switch back to latest `main` and create a feature branch for app registration.
 8. Add the app YAML and lock YAML under `bootstrap/argocd-apps/`.
