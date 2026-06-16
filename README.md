@@ -67,9 +67,13 @@ Both symlink targets should point back to this repo's Claude files.
 The tracked Claude settings are tuned to reduce routine permission prompts
 without using full bypass mode. They set `permissions.defaultMode` to
 `acceptEdits`, enable Claude's Bash sandbox with automatic approval for
-sandboxed commands, allow common read-only, test/build, `ollama list`, `kubectl get pods`, and Tekton CLI commands, and keep
+sandboxed commands, allow common read-only, test/build, `ollama list`,
+read-only Kubernetes inspection commands such as `kubectl get`, `kubectl describe`,
+`kubectl logs`, and `kubectl top`, plus Tekton CLI commands, and keep
 destructive or environment-changing commands such as `git push`, `git reset`,
-package installs, Docker, Kubernetes, Terraform, and Homebrew behind prompts.
+package installs, Docker, mutating or interactive Kubernetes commands such as
+`kubectl apply`, `kubectl delete`, `kubectl exec`, and `kubectl port-forward`,
+Terraform, and Homebrew behind prompts.
 They also deny common secret paths such as `.env`, `secrets/`, `~/.aws`, and
 `~/.ssh`.
 
