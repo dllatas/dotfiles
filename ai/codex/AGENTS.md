@@ -59,6 +59,11 @@ These instructions are intended for the global Codex `AGENTS.md` layer so they a
 - External integrations should have fallback paths where practical
 - Worker and pipeline flows should tolerate per-item failures and report them clearly
 
+## CLI Permissions
+
+- For read-only Kubernetes inspection, put the verb immediately after `kubectl` or `rtk kubectl` so Codex prefix approvals match: `kubectl logs -n <namespace> ...`, not `kubectl -n <namespace> logs ...`
+- Treat mutating or interactive Kubernetes commands such as `kubectl apply`, `kubectl delete`, `kubectl exec`, and `kubectl port-forward` as approval-worthy operations
+
 ## Dependencies
 
 - Prefer existing helpers and standard library functionality before adding abstractions

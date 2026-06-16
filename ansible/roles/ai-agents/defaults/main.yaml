@@ -2,4 +2,5 @@
 claude_config_path: "{{ ansible_facts['env']['HOME'] }}/.claude"
 claude_skills_path: "{{ claude_config_path }}/skills"
 codex_config_path: "{{ ansible_facts['env']['HOME'] }}/.codex"
+codex_rules_path: "{{ codex_config_path }}/rules"
 codex_skills_path: "{{ ansible_facts['env']['HOME'] }}/.agents/skills"

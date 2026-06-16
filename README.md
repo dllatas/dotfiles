@@ -131,6 +131,14 @@ The Ansible playbook seeds `~/.codex/config.toml` from [`ai/codex/config.toml`](
 
 The tracked defaults currently set `approval_policy = "on-request"` with `sandbox_mode = "danger-full-access"`. That combination gives Codex full local filesystem access, including Git metadata writes such as creating worktrees or branches, while still allowing approval prompts when the agent wants to ask before doing something sensitive.
 
+The `ai-agents` role also adds durable Codex prefix approvals for read-only
+Kubernetes inspection commands: `kubectl get`, `kubectl describe`,
+`kubectl logs`, and `kubectl top`, plus the same commands through
+`rtk kubectl`. These approvals preserve existing local rules in
+`~/.codex/rules/default.rules`. Mutating or interactive Kubernetes commands
+such as `kubectl apply`, `kubectl delete`, `kubectl exec`, and
+`kubectl port-forward` are not pre-approved.
+
 The playbook also installs the global `codex-init` skill by symlinking [`ai/codex/skills/codex-init/`](/dotfiles/ai/codex/skills/codex-init/SKILL.md) into `~/.agents/skills/codex-init`.
 It also installs the global `write-commits` skill by symlinking [`ai/codex/skills/write-commits/`](/dotfiles/ai/codex/skills/write-commits/SKILL.md) into `~/.agents/skills/write-commits`.
 It also installs the global `create-pr` skill by symlinking [`ai/codex/skills/create-pr/`](/dotfiles/ai/codex/skills/create-pr/SKILL.md) into `~/.agents/skills/create-pr`.
