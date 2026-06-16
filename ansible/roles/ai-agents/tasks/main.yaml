@@ -78,6 +78,13 @@
     state: link
     force: true
 
+- name: Symlink global tdd Claude skill
+  file:
+    src: "{{ dotfiles_path }}/ai/claude/skills/tdd"
+    dest: "{{ claude_skills_path }}/tdd"
+    state: link
+    force: true
+
 - name: Symlink global deploy-netcup-app Claude skill
   file:
     src: "{{ dotfiles_path }}/ai/claude/skills/deploy-netcup-app"
@@ -154,6 +161,13 @@
   file:
     src: "{{ dotfiles_path }}/ai/codex/skills/update-docs"
     dest: "{{ codex_skills_path }}/update-docs"
+    state: link
+    force: true
+
+- name: Symlink global tdd skill
+  file:
+    src: "{{ dotfiles_path }}/ai/codex/skills/tdd"
+    dest: "{{ codex_skills_path }}/tdd"
     state: link
     force: true
 

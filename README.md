@@ -1,6 +1,6 @@
 # dotfiles
 
-Personal workstation bootstrap for macOS, centered on Ansible-managed setup and a shared Claude Code global preferences file.
+Personal workstation bootstrap for macOS, centered on Ansible-managed setup and shared Claude Code and Codex agent configs.
 
 ## Common Commands
 
@@ -84,6 +84,7 @@ under `~/.claude/skills/`:
 - [`ai/claude/skills/write-commits/`](/dotfiles/ai/claude/skills/write-commits/SKILL.md): commit writing
 - [`ai/claude/skills/create-pr/`](/dotfiles/ai/claude/skills/create-pr/SKILL.md): PR creation
 - [`ai/claude/skills/update-docs/`](/dotfiles/ai/claude/skills/update-docs/SKILL.md): doc maintenance
+- [`ai/claude/skills/tdd/`](/dotfiles/ai/claude/skills/tdd/SKILL.md): pragmatic test-driven development
 - [`ai/claude/skills/deploy-netcup-app/`](/dotfiles/ai/claude/skills/deploy-netcup-app/SKILL.md): Netcup app deploys
 - [`ai/claude/skills/create-argocd-app/`](/dotfiles/ai/claude/skills/create-argocd-app/SKILL.md): Netcup ArgoCD app registration
 - [`ai/claude/skills/create-ci-pipeline/`](/dotfiles/ai/claude/skills/create-ci-pipeline/SKILL.md): Tekton PaC image pipelines
@@ -108,6 +109,7 @@ This repo tracks both:
 - [`ai/codex/skills/write-commits/`](/dotfiles/ai/codex/skills/write-commits/SKILL.md): a global Codex skill installed at `~/.agents/skills/write-commits`
 - [`ai/codex/skills/create-pr/`](/dotfiles/ai/codex/skills/create-pr/SKILL.md): a global Codex skill installed at `~/.agents/skills/create-pr`
 - [`ai/codex/skills/update-docs/`](/dotfiles/ai/codex/skills/update-docs/SKILL.md): a global Codex skill installed at `~/.agents/skills/update-docs`
+- [`ai/codex/skills/tdd/`](/dotfiles/ai/codex/skills/tdd/SKILL.md): a global Codex skill installed at `~/.agents/skills/tdd`
 - [`ai/codex/skills/deploy-netcup-app/`](/dotfiles/ai/codex/skills/deploy-netcup-app/SKILL.md): a global Codex skill installed at `~/.agents/skills/deploy-netcup-app`
 - [`ai/codex/skills/create-argocd-app/`](/dotfiles/ai/codex/skills/create-argocd-app/SKILL.md): a global Codex skill installed at `~/.agents/skills/create-argocd-app`
 - [`ai/codex/skills/create-ci-pipeline/`](/dotfiles/ai/codex/skills/create-ci-pipeline/SKILL.md): a global Codex skill installed at `~/.agents/skills/create-ci-pipeline`
@@ -143,6 +145,7 @@ The playbook also installs the global `codex-init` skill by symlinking [`ai/code
 It also installs the global `write-commits` skill by symlinking [`ai/codex/skills/write-commits/`](/dotfiles/ai/codex/skills/write-commits/SKILL.md) into `~/.agents/skills/write-commits`.
 It also installs the global `create-pr` skill by symlinking [`ai/codex/skills/create-pr/`](/dotfiles/ai/codex/skills/create-pr/SKILL.md) into `~/.agents/skills/create-pr`.
 It also installs the global `update-docs` skill by symlinking [`ai/codex/skills/update-docs/`](/dotfiles/ai/codex/skills/update-docs/SKILL.md) into `~/.agents/skills/update-docs`.
+It also installs the global `tdd` skill by symlinking [`ai/codex/skills/tdd/`](/dotfiles/ai/codex/skills/tdd/SKILL.md) into `~/.agents/skills/tdd`.
 It also installs the global `deploy-netcup-app` skill by symlinking [`ai/codex/skills/deploy-netcup-app/`](/dotfiles/ai/codex/skills/deploy-netcup-app/SKILL.md) into `~/.agents/skills/deploy-netcup-app`.
 It also installs the global `create-argocd-app` skill by symlinking [`ai/codex/skills/create-argocd-app/`](/dotfiles/ai/codex/skills/create-argocd-app/SKILL.md) into `~/.agents/skills/create-argocd-app`.
 It also installs the global `create-ci-pipeline` skill by symlinking [`ai/codex/skills/create-ci-pipeline/`](/dotfiles/ai/codex/skills/create-ci-pipeline/SKILL.md) into `~/.agents/skills/create-ci-pipeline`.
@@ -176,6 +179,7 @@ The Claude and Codex files serve different products and layers, but they should 
 - `ai/claude/skills/write-commits/` for the global Claude commit-writing skill
 - `ai/claude/skills/create-pr/` for the global Claude PR-creation skill
 - `ai/claude/skills/update-docs/` for the global Claude doc-maintenance skill
+- `ai/claude/skills/tdd/` for the global Claude test-driven development skill
 - `ai/claude/skills/deploy-netcup-app/` for the global Claude Netcup deploy skill
 - `ai/claude/skills/create-argocd-app/` for the global Claude Netcup ArgoCD app-registration skill
 - `ai/claude/skills/create-ci-pipeline/` for the global Claude Tekton PaC image-pipeline skill
@@ -186,6 +190,7 @@ The Claude and Codex files serve different products and layers, but they should 
 - `ai/codex/skills/write-commits/` for the global Codex commit-writing skill
 - `ai/codex/skills/create-pr/` for the global Codex PR-creation skill
 - `ai/codex/skills/update-docs/` for the global Codex doc-maintenance skill
+- `ai/codex/skills/tdd/` for the global Codex test-driven development skill
 - `ai/codex/skills/deploy-netcup-app/` for the global Codex Netcup deploy skill
 - `ai/codex/skills/create-argocd-app/` for the global Codex Netcup ArgoCD app-registration skill
 - `ai/codex/skills/create-ci-pipeline/` for the global Codex Tekton PaC image-pipeline skill
