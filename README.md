@@ -26,6 +26,7 @@ Without `--tags ai-agents`, the full playbook also runs roles such as `brew`, `k
 - `AGENTS.md`: repo-scoped instructions for this dotfiles repo
 - `WATCHLIST.md`: tools evaluated but not yet adopted, with revisit dates
 - `BACKLOG.md`: improvements and tasks queued for this repo
+- `DISK-CLEANUP.md`: macOS disk cleanup process and reclaim notes from a real cleanup session
 
 ## Agent config
 
