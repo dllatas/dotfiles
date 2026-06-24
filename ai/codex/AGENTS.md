@@ -79,6 +79,8 @@ These instructions are intended for the global Codex `AGENTS.md` layer so they a
 - Read each file once per task unless it was modified since last read
 - Favor the simplest direct fix and resist over-engineering
 - Use available CLI tools such as `gh` for GitHub operations and installed linters for checks
+- For complex work, clarify outcome and rationale before implementation; optimize for the goal, not only the literal requested action
+- For non-trivial changes, provide end-to-end evidence when practical: browser screenshots, CLI output, logs, or exercised user flows, not only unit tests
 - Guidance files (AGENTS.md, SKILL.md, memory) load every session; write them in compressed fragment syntax, keep them lean
 - Re-read the project AGENTS.md at the start of every new task to refresh context
 - When user instructions conflict with these defaults, follow the user
