@@ -63,6 +63,8 @@
 - Read each file once per task unless it was modified since last read
 - Favor the simplest direct fix; resist over-engineering
 - Use available CLI tools: prefer `gh` for GitHub operations, installed linters/formatters for checks
+- For complex work, clarify outcome and rationale before implementation; optimize for the goal, not only the literal requested action
+- For non-trivial changes, provide end-to-end evidence when practical: browser screenshots, CLI output, logs, or exercised user flows, not only unit tests
 - Guidance files (CLAUDE.md, AGENTS.md, SKILL.md, memory) load every session; write them in compressed fragment syntax, keep them lean
 - Re-read the project CLAUDE.md at the start of every new task to refresh context
 - When user instructions conflict with these defaults, follow the user
