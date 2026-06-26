@@ -21,6 +21,7 @@
 - Environment variables: SCREAMING_SNAKE_CASE
 
 ## Commit Style
+- For any commit, history cleanup, branch-prep, or "write commits" request, use the `write-commits` skill before staging or committing
 - Use conventional commits with scope: `feat(ui):`, `fix(docker):`, `refactor(worker):`
 - Atomic commits: group related changes, prefer several focused commits over one large one
 - Be verbose in messages: explain *why*, not just *what*
