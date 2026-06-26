@@ -90,6 +90,9 @@ under `~/.claude/skills/`:
 - [`ai/claude/skills/create-argocd-app/`](/dotfiles/ai/claude/skills/create-argocd-app/SKILL.md): Netcup ArgoCD app registration
 - [`ai/claude/skills/create-ci-pipeline/`](/dotfiles/ai/claude/skills/create-ci-pipeline/SKILL.md): Tekton PaC image pipelines
 
+The global Claude instructions route commit and history-cleanup requests through
+the `write-commits` skill before staging or committing.
+
 The `claude-init` skill uses portable project guidance: repo-root `AGENTS.md`
 is the canonical guide, and repo-root `CLAUDE.md` should be a relative symlink
 to `AGENTS.md`. Claude-specific subagents belong in `.claude/agents/`, not in
@@ -150,6 +153,9 @@ It also installs the global `tdd` skill by symlinking [`ai/codex/skills/tdd/`](/
 It also installs the global `deploy-netcup-app` skill by symlinking [`ai/codex/skills/deploy-netcup-app/`](/dotfiles/ai/codex/skills/deploy-netcup-app/SKILL.md) into `~/.agents/skills/deploy-netcup-app`.
 It also installs the global `create-argocd-app` skill by symlinking [`ai/codex/skills/create-argocd-app/`](/dotfiles/ai/codex/skills/create-argocd-app/SKILL.md) into `~/.agents/skills/create-argocd-app`.
 It also installs the global `create-ci-pipeline` skill by symlinking [`ai/codex/skills/create-ci-pipeline/`](/dotfiles/ai/codex/skills/create-ci-pipeline/SKILL.md) into `~/.agents/skills/create-ci-pipeline`.
+
+The global Codex instructions route commit and history-cleanup requests through
+the `write-commits` skill before staging or committing.
 
 The `codex-init` skill follows the same portable guidance rule as
 `claude-init`: keep repo-root `AGENTS.md` canonical and make repo-root

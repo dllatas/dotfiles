@@ -42,6 +42,7 @@ These instructions are intended for the global Codex `AGENTS.md` layer so they a
 
 ## Commits & PRs
 
+- For any commit, history cleanup, branch-prep, or "write commits" request, use the `write-commits` skill before staging or committing
 - Use conventional commits with scope when making commits
 - Prefer several focused commits over one broad commit
 - Commit messages should explain why the change exists, not only what changed
