@@ -1,4 +1,4 @@
 interface:
   display_name: "Deploy Netcup App"
   short_description: "Deploy Harbor image via Netcup GitOps."
-  default_prompt: "Use $deploy-netcup-app to deploy a new image version to the Netcup k3s cluster, defaulting ENV to staging unless I explicitly set ENV=production."
+  default_prompt: "Use $deploy-netcup-app to deploy a new image version to the Netcup k3s cluster. Default ENV to staging unless I explicitly set ENV=production, do not ask for an extra staging confirmation after the app/image/tag are resolved, and verify through kubectl/cluster state rather than probing ArgoCD CLI."

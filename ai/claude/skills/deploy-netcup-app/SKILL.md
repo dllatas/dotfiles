@@ -18,6 +18,8 @@ Deploy by changing the image reference that ArgoCD already tracks in
 - `ENV`: deployment environment. Default to `staging` when omitted or empty.
 - Allowed `ENV` values: `staging`, `production`.
 - Treat production as opt-in only. If `ENV=production` is not explicit in the user request, use `staging`.
+- A user command to deploy, release, promote, roll out, or bump an image is authorization to update staging GitOps, commit, push, and verify rollout. Do not ask for an extra staging confirmation after resolving the app, PR, image, and tag.
+- Ask before editing only when the requested target is production, the deploy target is ambiguous, the image/tag cannot be proven, or unrelated local changes would be touched.
 - If the user implies production without explicitly setting `ENV=production`, stop and ask for confirmation before editing anything.
 
 ## Preconditions
@@ -39,8 +41,9 @@ Deploy by changing the image reference that ArgoCD already tracks in
 8. Validate that the new reference is explicit and points at Harbor, for example `harbor.harokilabs.com/<env-or-project>/<image>:<tag>`.
 9. Validate the chart/manifests using the repo's documented commands. If no app-specific command exists, at minimum run `helm template <releaseName> <path>` when `<path>` is a Helm chart.
 10. Review the diff, commit with a conventional commit such as `chore(<app>): deploy <image> <tag> to <env>`, and push the companion branch.
-11. Trigger or request ArgoCD sync for the environment application after the branch push. Prefer `argocd app sync <app>` if the CLI is configured; otherwise tell the user the branch is pushed and ArgoCD should reconcile the application.
-12. Verify rollout health when cluster access is available: `argocd app wait <app> --health --sync` or `kubectl rollout status` for the affected Deployment in the destination namespace.
+11. After pushing, use the Kubernetes cluster as the primary verification surface. Do not check for or invoke the ArgoCD CLI unless the user explicitly says it is configured for this session.
+12. Confirm ArgoCD reconciliation through Kubernetes when cluster access is available: read the Application status with `kubectl get application -n argocd <app> -o yaml` or `kubectl get application -A` to locate it, then poll the affected Deployment/Pods in the destination namespace until the desired image appears and rollout health is clear.
+13. If cluster access is unavailable, state that the GitOps branch was pushed and that verification is blocked by missing cluster access. Do not ask whether to use ArgoCD CLI as a fallback.
 
 ## Image Verification
 
@@ -48,6 +51,18 @@ Deploy by changing the image reference that ArgoCD already tracks in
   `crane manifest harbor.harokilabs.com/staging/<image>:<tag>`, `docker manifest inspect ...`, or `regctl manifest get ...`.
 - If registry auth or tooling is unavailable, inspect Tekton/GitHub build evidence and state the verification gap clearly before pushing.
 - If the requested tag does not exist in Harbor, stop. Do not guess a nearby tag.
+
+## Cluster Verification
+
+- Prefer `kubectl` over `argocd` for deploy verification. The workstation normally has cluster access but not ArgoCD CLI login.
+- Use read-only cluster checks first:
+  - `kubectl get application -A | rg '<app>|<namespace>'`
+  - `kubectl get application -n argocd <app> -o yaml`
+  - `kubectl get deploy -n <namespace> -o wide`
+  - `kubectl get pods -n <namespace> -l app.kubernetes.io/instance=<releaseName> -o wide`
+- Poll the Deployment image and rollout state with `kubectl get deploy -n <namespace> <deployment> -o yaml` or targeted `jsonpath` reads. Prefer the exact Deployment name from the rendered chart or existing cluster objects.
+- Do not spend time probing `argocd version`, `argocd account`, or `argocd app get` unless the user explicitly requests ArgoCD CLI use.
+- Do not mutate cluster state with `kubectl apply`, `kubectl patch`, `kubectl delete`, or `kubectl rollout restart` during a normal GitOps image deploy.
 
 ## Repo-Local Memory
 
@@ -75,7 +90,8 @@ Only store production mapping after an explicit production deploy request or exp
 ## Safety Rules
 
 - Default to staging when `ENV` is empty.
-- Require explicit `ENV=production` before production deploys.
+- For staging, proceed without an additional human confirmation once the requested app/image/tag are resolved and validated.
+- Require explicit `ENV=production` before production deploys, and ask for confirmation before production edits.
 - Do not edit `bootstrap/argocd-apps/*.yaml` unless the ArgoCD app definition itself must change.
 - Do not change chart versions, sync waves, namespaces, secrets, or unrelated image references as part of an image deploy.
 - Do not force-push or rewrite shared companion branches unless the user explicitly approves.
