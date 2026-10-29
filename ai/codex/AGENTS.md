@@ -28,6 +28,7 @@ These instructions are intended for the global Codex `AGENTS.md` layer so they a
 ## Workflow
 
 - Prefer reading the existing docs and project guidance before changing code
+- For Sheltie feature work (tail, unblock, review a PR, or drive a feature to merge readiness), use the `sheltie-feature` skill
 - Keep changes aligned with the repo's actual tooling and conventions; do not invent commands or workflows
 - In git repositories, create and use a git worktree for the task instead of editing in the current checkout unless the user explicitly asks otherwise
 - If a worktree cannot be created safely, stop and explain the blocker before working in the current checkout
