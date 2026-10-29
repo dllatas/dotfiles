@@ -1,0 +1,4 @@
+interface:
+  display_name: "Sheltie Feature"
+  short_description: "Tail, unblock, and review a Sheltie feature to merge readiness"
+  default_prompt: "Use $sheltie-feature with a Sheltie feature name or URL. Tail it, unblock it when the decision is clear, and review the PR until it is ready to merge. Ping me only for decisions you cannot make."

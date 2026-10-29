@@ -89,9 +89,11 @@ under `~/.claude/skills/`:
 - [`ai/claude/skills/deploy-netcup-app/`](/dotfiles/ai/claude/skills/deploy-netcup-app/SKILL.md): Netcup app deploys
 - [`ai/claude/skills/create-argocd-app/`](/dotfiles/ai/claude/skills/create-argocd-app/SKILL.md): Netcup ArgoCD app registration
 - [`ai/claude/skills/create-ci-pipeline/`](/dotfiles/ai/claude/skills/create-ci-pipeline/SKILL.md): Tekton PaC image pipelines
+- [`ai/claude/skills/sheltie-feature/`](/dotfiles/ai/claude/skills/sheltie-feature/SKILL.md): Sheltie feature tailing, unblocking, and PR review
 
 The global Claude instructions route commit and history-cleanup requests through
-the `write-commits` skill before staging or committing.
+the `write-commits` skill before staging or committing. They also route Sheltie
+feature work (tail, unblock, PR review) through the `sheltie-feature` skill.
 
 The `claude-init` skill uses portable project guidance: repo-root `AGENTS.md`
 is the canonical guide, and repo-root `CLAUDE.md` should be a relative symlink
@@ -117,6 +119,7 @@ This repo tracks both:
 - [`ai/codex/skills/deploy-netcup-app/`](/dotfiles/ai/codex/skills/deploy-netcup-app/SKILL.md): a global Codex skill installed at `~/.agents/skills/deploy-netcup-app`
 - [`ai/codex/skills/create-argocd-app/`](/dotfiles/ai/codex/skills/create-argocd-app/SKILL.md): a global Codex skill installed at `~/.agents/skills/create-argocd-app`
 - [`ai/codex/skills/create-ci-pipeline/`](/dotfiles/ai/codex/skills/create-ci-pipeline/SKILL.md): a global Codex skill installed at `~/.agents/skills/create-ci-pipeline`
+- [`ai/codex/skills/sheltie-feature/`](/dotfiles/ai/codex/skills/sheltie-feature/SKILL.md): a global Codex skill installed at `~/.agents/skills/sheltie-feature`
 
 The Ansible playbook installs the global instructions file automatically. Manual fallback:
 
@@ -153,9 +156,11 @@ It also installs the global `tdd` skill by symlinking [`ai/codex/skills/tdd/`](/
 It also installs the global `deploy-netcup-app` skill by symlinking [`ai/codex/skills/deploy-netcup-app/`](/dotfiles/ai/codex/skills/deploy-netcup-app/SKILL.md) into `~/.agents/skills/deploy-netcup-app`.
 It also installs the global `create-argocd-app` skill by symlinking [`ai/codex/skills/create-argocd-app/`](/dotfiles/ai/codex/skills/create-argocd-app/SKILL.md) into `~/.agents/skills/create-argocd-app`.
 It also installs the global `create-ci-pipeline` skill by symlinking [`ai/codex/skills/create-ci-pipeline/`](/dotfiles/ai/codex/skills/create-ci-pipeline/SKILL.md) into `~/.agents/skills/create-ci-pipeline`.
+It also installs the global `sheltie-feature` skill by symlinking [`ai/codex/skills/sheltie-feature/`](/dotfiles/ai/codex/skills/sheltie-feature/SKILL.md) into `~/.agents/skills/sheltie-feature`.
 
 The global Codex instructions route commit and history-cleanup requests through
-the `write-commits` skill before staging or committing.
+the `write-commits` skill before staging or committing. They also route Sheltie
+feature work (tail, unblock, PR review) through the `sheltie-feature` skill.
 
 The `codex-init` skill follows the same portable guidance rule as
 `claude-init`: keep repo-root `AGENTS.md` canonical and make repo-root
@@ -190,6 +195,7 @@ The Claude and Codex files serve different products and layers, but they should 
 - `ai/claude/skills/deploy-netcup-app/` for the global Claude Netcup deploy skill
 - `ai/claude/skills/create-argocd-app/` for the global Claude Netcup ArgoCD app-registration skill
 - `ai/claude/skills/create-ci-pipeline/` for the global Claude Tekton PaC image-pipeline skill
+- `ai/claude/skills/sheltie-feature/` for the global Claude Sheltie feature-driver skill
 - `ai/codex/AGENTS.md` for Codex global instructions
 - `ai/codex/RTK.md` for RTK usage guide (imported by AGENTS.md)
 - `ai/codex/config.toml` for Codex stable user defaults
@@ -201,6 +207,7 @@ The Claude and Codex files serve different products and layers, but they should 
 - `ai/codex/skills/deploy-netcup-app/` for the global Codex Netcup deploy skill
 - `ai/codex/skills/create-argocd-app/` for the global Codex Netcup ArgoCD app-registration skill
 - `ai/codex/skills/create-ci-pipeline/` for the global Codex Tekton PaC image-pipeline skill
+- `ai/codex/skills/sheltie-feature/` for the global Codex Sheltie feature-driver skill
 
 Both global instruction files now tell the agents to create and work from a git worktree in git repositories instead of editing directly in the current checkout, unless you explicitly override that for a task.
 

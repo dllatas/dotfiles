@@ -106,6 +106,13 @@
     state: link
     force: true
 
+- name: Symlink global sheltie-feature Claude skill
+  file:
+    src: "{{ dotfiles_path }}/ai/claude/skills/sheltie-feature"
+    dest: "{{ claude_skills_path }}/sheltie-feature"
+    state: link
+    force: true
+
 - name: Symlink global Codex instructions
   file:
     src: "{{ dotfiles_path }}/ai/codex/AGENTS.md"
@@ -189,6 +196,13 @@
   file:
     src: "{{ dotfiles_path }}/ai/codex/skills/create-ci-pipeline"
     dest: "{{ codex_skills_path }}/create-ci-pipeline"
+    state: link
+    force: true
+
+- name: Symlink global sheltie-feature skill
+  file:
+    src: "{{ dotfiles_path }}/ai/codex/skills/sheltie-feature"
+    dest: "{{ codex_skills_path }}/sheltie-feature"
     state: link
     force: true
 

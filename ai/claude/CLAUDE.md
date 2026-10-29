@@ -28,6 +28,7 @@
 - Create commits during development whenever a logical unit is complete
 
 ## PR & Workflow
+- For Sheltie feature work (tail, unblock, review a PR, or drive a feature to merge readiness), use the `sheltie-feature` skill
 - Always create a local preview after finishing an iteration
 - Create a PR for changes with a clear description
 - PRs should reference the problem being solved, not just list files changed
