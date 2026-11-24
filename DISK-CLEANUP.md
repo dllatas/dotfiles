@@ -65,7 +65,7 @@ nvm uninstall <old-version>
 Found in the 2026-11-23 Sheltie cleanup run. Fix the playbook before relying on these steps.
 
 - **Git snapshot stores have no validation procedure.** The Sheltie cleanup rules point here for Git index header, object layout, activity, and `lsof` checks, but none are written. Skip temp-dir Git snapshots until they are.
-- **`docker volume prune -f` is safe only for anonymous volumes.** It removes every unused local volume, named or not. Run `docker volume ls --format '{{.Name}}'` first and confirm no named volume would be pruned.
+- **`docker volume prune -f` is safe only for anonymous volumes.** It removes every unused local volume, named or not. Anonymous volumes have 64-hex names. Before pruning, list names and confirm none is not 64-hex: `docker volume ls --format '{{.Name}}' | grep -vE '^[0-9a-f]{64}$'` must print nothing. Any output is a named volume; do not prune until it is reviewed.
 - **`du` over large home paths can exceed the 120 s tool timeout.** Scope the drill to known heavy paths (`~/Library/Containers/com.docker.docker`, `~/Library/Application Support/Claude/vm_bundles`) with `timeout 40 du -sh`.
 
 ## Session log — 2026-05-18
