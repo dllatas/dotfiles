@@ -106,6 +106,13 @@
     state: link
     force: true
 
+- name: Symlink global habito-cli Claude skill
+  file:
+    src: "{{ dotfiles_path }}/ai/claude/skills/habito-cli"
+    dest: "{{ claude_skills_path }}/habito-cli"
+    state: link
+    force: true
+
 - name: Symlink global Codex instructions
   file:
     src: "{{ dotfiles_path }}/ai/codex/AGENTS.md"
@@ -189,6 +196,13 @@
   file:
     src: "{{ dotfiles_path }}/ai/codex/skills/create-ci-pipeline"
     dest: "{{ codex_skills_path }}/create-ci-pipeline"
+    state: link
+    force: true
+
+- name: Symlink global habito-cli skill
+  file:
+    src: "{{ dotfiles_path }}/ai/codex/skills/habito-cli"
+    dest: "{{ codex_skills_path }}/habito-cli"
     state: link
     force: true
 

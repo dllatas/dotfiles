@@ -1,0 +1,4 @@
+interface:
+  display_name: "Habito CLI"
+  short_description: "Read and update Habito staging data via the habito CLI"
+  default_prompt: "Use $habito-cli to show my Habito snapshot from staging."
