@@ -5,6 +5,7 @@
       command: git -C "{{ playbook_dir }}" rev-parse --path-format=absolute --git-common-dir
       register: git_common_dir
       changed_when: false
+      check_mode: false
       tags: always
 
     - name: Set dotfiles_path to main worktree root
