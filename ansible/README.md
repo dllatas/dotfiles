@@ -59,7 +59,7 @@ The `ai-agents` role installs these global files:
 - `ai/claude/CLAUDE.md` as `~/.claude/CLAUDE.md`
 - `ai/claude/RTK.md` as `~/.claude/RTK.md`
 - `ai/claude/settings.json` as `~/.claude/settings.json`
-- Claude skill directories symlinked under `~/.claude/skills/` (claude-init, write-commits, create-pr, update-docs, tdd, deploy-netcup-app, create-argocd-app, create-ci-pipeline)
+- Claude skill directories symlinked under `~/.claude/skills/` (claude-init, write-commits, create-pr, update-docs, tdd, deploy-netcup-app, create-argocd-app, create-ci-pipeline, stylist, wardrobe, outfit-review)
 - `ai/codex/AGENTS.md` as `~/.codex/AGENTS.md`
 - `ai/codex/RTK.md` as `~/.codex/RTK.md`
 - Codex skill directories symlinked under `~/.agents/skills/` (codex-init, write-commits, create-pr, update-docs, tdd, deploy-netcup-app, create-argocd-app, create-ci-pipeline)
