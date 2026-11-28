@@ -113,6 +113,27 @@
     state: link
     force: true
 
+- name: Symlink global stylist Claude skill
+  file:
+    src: "{{ dotfiles_path }}/ai/claude/skills/stylist"
+    dest: "{{ claude_skills_path }}/stylist"
+    state: link
+    force: true
+
+- name: Symlink global wardrobe Claude skill
+  file:
+    src: "{{ dotfiles_path }}/ai/claude/skills/wardrobe"
+    dest: "{{ claude_skills_path }}/wardrobe"
+    state: link
+    force: true
+
+- name: Symlink global outfit-review Claude skill
+  file:
+    src: "{{ dotfiles_path }}/ai/claude/skills/outfit-review"
+    dest: "{{ claude_skills_path }}/outfit-review"
+    state: link
+    force: true
+
 - name: Symlink global Codex instructions
   file:
     src: "{{ dotfiles_path }}/ai/codex/AGENTS.md"
