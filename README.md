@@ -89,6 +89,9 @@ under `~/.claude/skills/`:
 - [`ai/claude/skills/deploy-netcup-app/`](/dotfiles/ai/claude/skills/deploy-netcup-app/SKILL.md): Netcup app deploys
 - [`ai/claude/skills/create-argocd-app/`](/dotfiles/ai/claude/skills/create-argocd-app/SKILL.md): Netcup ArgoCD app registration
 - [`ai/claude/skills/create-ci-pipeline/`](/dotfiles/ai/claude/skills/create-ci-pipeline/SKILL.md): Tekton PaC image pipelines
+- [`ai/claude/skills/stylist/`](/dotfiles/ai/claude/skills/stylist/SKILL.md): Pallay personal style companion
+- [`ai/claude/skills/wardrobe/`](/dotfiles/ai/claude/skills/wardrobe/SKILL.md): Pallay persistent wardrobe and garment knowledge
+- [`ai/claude/skills/outfit-review/`](/dotfiles/ai/claude/skills/outfit-review/SKILL.md): Pallay outfit review, comparison and rating
 
 The global Claude instructions route commit and history-cleanup requests through
 the `write-commits` skill before staging or committing.
