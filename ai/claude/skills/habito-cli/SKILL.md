@@ -28,6 +28,9 @@ description: >
 - Overview of everything: `habito snapshot` (JSON; pipe through `jq`)
 - Read: `habits`, `events`, `journals`, `todos`, `insights`, `counters`, `ratios`, `routine`, `goal`, `collection`, `tag`, `profile`
 - Write: `habit`, `track`, `journal`, `journal-moods`, `todo`, `todo-status`, `todo-update`, `habit-update`, plus subcommands of `routine`/`goal`/`collection`/`tag`/`profile`
+- Flags must come BEFORE positional args → flags placed after positional args are silently ignored
+- Collection commands: omit `user_id` → passing an explicit user ID returned 401
+- `collection update` prints nothing on success → empty output is not an error
 
 ## Rules
 - Staging holds real personal data → confirm before writes that delete or overwrite (`insight-rm`, tag/collection removals, bulk updates); creates/tracking the user asked for are fine
